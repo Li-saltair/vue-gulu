@@ -8,7 +8,7 @@
     <style>
       :root {
         --button-height: 32px;
-        --font-size: 14px;
+        --font-size: 13px;
         --background: #7c7;
         --button-bg: #fff;
         --button-active-bg: #f6f6f6;
@@ -17,12 +17,28 @@
         --border-color: #aaa;
         --border-color-hover: #777;
       }
+      .icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+      }
     </style>
   </head>
   <body>
     <div id="root">
-      <g-button></g-button>
+      <g-button icon="setting" button-class="right">
+        哈哈哈哈哈
+      </g-button>
+      <g-button icon="setting" button-class="left">
+        哈哈哈哈哈
+      </g-button>
+      <g-button>
+        哈哈哈哈哈
+      </g-button>
     </div>
     <script src="./src/app.js"></script>
+    <script src="//at.alicdn.com/t/font_1040061_oqcuaujupaf.js"></script>
   </body>
 </html>
