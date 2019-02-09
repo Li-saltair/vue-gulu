@@ -1,56 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh_Cn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
-        :root{
-            --button-height:32px;
-            --font-size:14px;
-            --background:#7c7;
-            --button-bg:#fff;
-            --button-active-bg:#f6f6f6;
-            --border-radius:4px;
-            --color:#333;
-            --border-color:#aaa;
-            --border-color-hover:#777;
-        }
+      :root {
+        --button-height: 32px;
+        --font-size: 14px;
+        --background: #7c7;
+        --button-bg: #fff;
+        --button-active-bg: #f6f6f6;
+        --border-radius: 4px;
+        --color: #333;
+        --border-color: #aaa;
+        --border-color-hover: #777;
+      }
     </style>
-    <style>
-        .g-button{
-            font-size:var(--font-size);
-            height:var(--button-height);
-            background:var(--button-bg);
-            padding:0 1em;
-            font:inherit;
-            border-radius:var(--border-radius);
-            border:1px solid var(--border-color);
-        }
-        .g-button:hover{
-            border:1px solid var(--border-color-hover)
-        }
-        .g-button:active{
-            background:var(--button-active-bg)
-        }
-        .g-button:focus{
-            outline:none;
-        }
-    </style>
-    
-</head>
-<body>
+  </head>
+  <body>
     <div id="root">
-        <g-button></g-button>
+      <g-button></g-button>
     </div>
-    
-    <script src="./node_modules/vue/dist/vue.min.js"></script>
-    <script src="./button.js"></script>
-    <script>
-        let app = new Vue({
-            el:"#root",
-        })
-    </script>
-</body>
+    <script src="./src/app.js"></script>
+  </body>
 </html>
