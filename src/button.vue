@@ -1,8 +1,7 @@
 <template>
   <button class="g-button" :class="{[`icon-${buttonClass}`]:true}">
-    <svg class="icon" aria-hidden="true" v-if="icon">
-      <use :xlink:href="`#i-${icon}`"></use>
-    </svg>
+    <g-icon v-if="icon" :name="icon"></g-icon>
+    <g-icon class="loading" name="loading"></g-icon>
     <div class="button-content">
       <slot></slot>
     </div>
@@ -11,21 +10,33 @@
 <script>
 export default {
   props: {
-    icon:String,
-    buttonClass:{
-      type:String,
-      default:"left"
+    icon: String,
+    buttonClass: {
+      type: String,
+      default: "left",
+      validator(value) {
+        //传进来的value值
+        return value === "left" || value === "right";
+      }
     }
   }
 };
 </script>
 <style lang="scss">
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .g-button {
   vertical-align: middle;
   font-size: var(--font-size);
   height: var(--button-height);
   background: var(--button-bg);
-  padding: 0 .8em;
+  padding: 0 0.8em;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +54,7 @@ export default {
   }
   > .icon {
     order: 1;
-    margin-right:.3em;
+    margin-right: 0.3em;
   }
   > .button-content {
     order: 2;
@@ -51,14 +62,17 @@ export default {
   }
   &.icon-right {
     > .icon {
-      margin-left:.3em;
-      margin-right:0;
+      margin-left: 0.3em;
+      margin-right: 0;
       order: 2;
     }
     > .button-content {
       order: 1;
       font-size: var(--font-size);
     }
+  }
+  .loading{
+    animation: spin 1s linear infinite;
   }
 }
 </style>
