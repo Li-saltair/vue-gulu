@@ -15,7 +15,7 @@
         --border-radius: 4px;
         --color: #333;
         --border-color: #aaa;
-        --border-color-hover: #777;
+        --border-color-hover: #7c7;
       }
       .icon {
         width: 1em;
@@ -28,15 +28,20 @@
   </head>
   <body>
     <div id="root">
-      <g-button icon="setting" button-class="right">
+      <g-button icon="setting" button-position="right" :loading="true">
         哈哈哈哈哈
       </g-button>
-      <g-button icon="loading" button-class="left">
+      <g-button button-class="left">
         加载中
       </g-button>
-      <g-button>
+      <g-button :loading="loading1" @click="loading1 = !loading1">
         哈哈哈哈哈
       </g-button>
+      <g-button-group>
+        <g-button icon="left">上页</g-button>
+        <g-button>内容</g-button>
+        <g-button icon="right" button-position="right">下页</g-button>
+      </g-button-group>
     </div>
     <script src="./src/app.js"></script>
     <script src="//at.alicdn.com/t/font_1040061_oqcuaujupaf.js"></script>
