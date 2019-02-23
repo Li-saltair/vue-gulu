@@ -13,5 +13,10 @@ new Vue({
   el: "#root",
   data: {
     loading1: false
+  },
+  methods:{
+    onChange:function(e){
+      console.log(e.target.value)
+    }
   }
 });
