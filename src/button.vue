@@ -39,23 +39,32 @@ export default {
     transform: rotate(360deg);
   }
 }
+$button-height: 32px;
+$font-size: 13px;
+$background: #7c7;
+$button-bg: #fff;
+$button-active-bg: #f6f6f6;
+$border-radius: 4px;
+$color: #333;
+$border-color: #aaa;
+$border-color-hover: #777;
 .g-button {
   vertical-align: middle;
-  font-size: var(--font-size);
-  height: var(--button-height);
-  background: var(--button-bg);
+  font-size: $font-size;
+  height: $button-height;
+  background: $button-bg;
   padding: 0 0.8em;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   font: inherit;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
   &:hover {
-    border: 1px solid var(--border-color-hover);
+    border: 1px solid $border-color-hover;
   }
   &:active {
-    background: var(--button-active-bg);
+    background: $button-active-bg;
   }
   &:focus {
     outline: none;
@@ -66,7 +75,7 @@ export default {
   }
   > .button-content {
     order: 2;
-    font-size: var(--font-size);
+    font-size: $font-size;
   }
   &.icon-right {
     > .icon {
@@ -76,7 +85,7 @@ export default {
     }
     > .button-content {
       order: 1;
-      font-size: var(--font-size);
+      font-size: $font-size;
     }
   }
   .loading{

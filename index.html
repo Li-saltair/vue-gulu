@@ -6,17 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
-      :root {
-        --button-height: 32px;
-        --font-size: 13px;
-        --background: #7c7;
-        --button-bg: #fff;
-        --button-active-bg: #f6f6f6;
-        --border-radius: 4px;
-        --color: #333;
-        --border-color: #aaa;
-        --border-color-hover: #777;
-      }
       .icon {
         width: 1em;
         height: 1em;
@@ -28,6 +17,11 @@
   </head>
   <body>
     <div id="root">
+      <g-input value="张三"></g-input>
+      <g-input value="李四" disabled></g-input>
+      <g-input value="狗子" readonly></g-input>
+      <g-input value="狗子" error="姓名不能少于2个字"></g-input>
+      <br>
       <g-button icon="setting" icon-position="right" :loading="true">
         哈哈哈哈哈
       </g-button>
@@ -44,6 +38,5 @@
       </g-button-group>
     </div>
     <script src="./src/app.js"></script>
-    <!-- <script src="//at.alicdn.com/t/font_1040061_oqcuaujupaf.js"></script> -->
   </body>
 </html>
