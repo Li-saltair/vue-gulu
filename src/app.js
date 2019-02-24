@@ -12,7 +12,8 @@ Vue.component("g-input", Ginput);
 new Vue({
   el: "#root",
   data: {
-    loading1: false
+    loading1: false,
+    message:"hello"
   },
   methods:{
     onChange:function(e){

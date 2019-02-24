@@ -5,10 +5,10 @@
       v-bind:value="value"
       :disabled="disabled"
       :readonly="readonly"
-      @change="$emit('change',$event)"
-      @focus="$emit('focus',$event)"
-      @blur="$emit('blur',$event)"
-      @input="$emit('input',$event)"
+      @change="$emit('change',$event.target.value)"
+      @focus="$emit('focus',$event.target.value)"
+      @blur="$emit('blur',$event.target.value)"
+      @input="$emit('input',$event.target.value)"
     >
     <template v-if="error">
       <Icon name="error" class="icon-error"></Icon>

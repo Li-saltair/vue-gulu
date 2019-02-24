@@ -12,11 +12,14 @@ describe("Input", () => {
 
   //测试props
   describe("props", () => {
+
     const Constructor = Vue.extend(Input);
     let vm;
+
     afterEach(function() {
       vm.$destroy();
     });
+
     it("可以接收value", () => {
       vm = new Constructor({
         propsData: {
@@ -25,7 +28,6 @@ describe("Input", () => {
       }).$mount();
       const inputElement = vm.$el.querySelector("input");
       expect(inputElement.value).to.equal("value");
-      vm.$destroy();
     });
 
     it("可以接收disabled", () => {
@@ -36,7 +38,6 @@ describe("Input", () => {
       }).$mount();
       const inputElement = vm.$el.querySelector("input");
       expect(inputElement.disabled).to.equal(true);
-      vm.$destroy();
     });
 
     it("可以接收readonly", () => {
@@ -47,7 +48,6 @@ describe("Input", () => {
       }).$mount();
       const inputElement = vm.$el.querySelector("input");
       expect(inputElement.readOnly).to.equal(true);
-      vm.$destroy();
     });
 
     it("可以接收error", () => {
@@ -61,7 +61,6 @@ describe("Input", () => {
       expect(useElements[0].getAttribute("xlink:href")).to.equal("#i-error");
       const errorMsg = vm.$el.querySelector(".error-msg");
       expect(errorMsg.innerText).to.equal("error occur");
-      vm.$destroy();
     });
   });
 
@@ -81,10 +80,16 @@ describe("Input", () => {
         vm.$on(item,callback)
         //trigger change event
         let event = new Event(item)
+        Object.defineProperty(event,'target',{
+            value:{
+                value:'hi'
+            },
+            enumerable:true
+        })
         const inputElement = vm.$el.querySelector("input");
         inputElement.dispatchEvent(event)
 
-        expect(callback).to.have.been.calledWith(event)
+        expect(callback).to.have.been.calledWith('hi')
         })
         
     });
