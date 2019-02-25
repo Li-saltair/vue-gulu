@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
+      *{
+        box-sizing: border-box;
+      }
       .icon {
         width: 1em;
         height: 1em;
@@ -17,13 +20,29 @@
   </head>
   <body>
     <div id="root">
+      <div style='border:1px solid #7e665a'>
+        <g-row gutter=10>
+          <g-col>哈哈</g-col>
+          <g-col>哈哈</g-col>
+          <g-col>哈哈</g-col>
+        </g-row>
+        <g-row>
+          <g-col span="2">哈哈</g-col>
+          <g-col span="21" offset="1">哈哈</g-col>
+        </g-row>
+        <g-row>
+          <g-col span="2">哈哈</g-col>
+          <g-col span="6" offset="1">哈哈</g-col>
+        </g-row>
+      </div>
+      <br />
       <g-input value="张三" @change="onChange"></g-input>
       <g-input value="李四" disabled></g-input>
       <g-input value="狗子" readonly></g-input>
       <g-input value="狗子" error="姓名不能少于2个字"></g-input>
       <g-input value="hi" v-model="message"></g-input>
-      <p>{{message}}</p>
-      <br>
+      <p>{{ message }}</p>
+      <br />
       <g-button icon="setting" icon-position="right" :loading="true">
         哈哈哈哈哈
       </g-button>
