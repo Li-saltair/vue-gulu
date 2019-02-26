@@ -1,6 +1,5 @@
 <template>
-  <div class="col" :class="[`span && col-${span}`,offset && `offset-${offset}`]"
-  :style="{paddingLeft:gutter/2 + 'px',paddingRight:gutter/2 + 'px'}" >
+  <div class="col" :class=colClasses :style="colStyle">
     <div style="border:1px solid #f00;background:#fc0; height:100px;">
       <slot></slot>
     </div>
@@ -13,16 +12,27 @@ export default {
     span: [Number, String],
     offset: [Number, String]
   },
-  data(){
+  data() {
     return {
-      gutter:0
+      gutter: 0
+    };
+  },
+  computed: {
+    colStyle() {
+      return {
+        paddingLeft: this.gutter / 2 + "px",
+        paddingRight: this.gutter / 2 + "px"
+      };
+    },
+    colClasses(){
+      return [this.span && `col-${this.span}`,this.offset && `offset-${this.offset}`]
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 .col {
-  padding:0 10px;
+  padding: 0 10px;
   width: 50%;
   height: 100px;
   $class: col-;
@@ -32,7 +42,7 @@ export default {
     }
   }
 
-$class: offset-;
+  $class: offset-;
   @for $n from 1 through 24 {
     &.#{$class}#{$n} {
       margin-left: ($n / 24) * 100%;
