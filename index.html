@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
-      *{
+      * {
         box-sizing: border-box;
       }
       .icon {
@@ -16,27 +16,46 @@
         fill: currentColor;
         overflow: hidden;
       }
+      .demo-box {
+        height: 50px;
+        background: #7c7;
+        border: 1px solid #333;
+      }
     </style>
   </head>
   <body>
     <div id="root">
-      <div style='border:1px solid #7e665a'>
-        <g-row gutter=10>
-          <g-col>哈哈</g-col>
-          <g-col>哈哈</g-col>
-          <g-col>哈哈</g-col>
+      <div style="border:1px solid #7e665a">
+        <g-row>
+          <g-col class="demo-box" span="9">
+            <g-row>
+              <g-col span="9">
+                <g-row align="left">
+                  <g-col>1</g-col>
+                  <g-col>2</g-col>
+                  <g-col>3</g-col>
+                </g-row>
+              </g-col>
+            </g-row>
+          </g-col>
+          <g-col class="demo-box" span="15">
+            <g-row align="right">
+              <g-col>1</g-col>
+              <g-col>2</g-col>
+              <g-col>3</g-col>
+              <g-col>3</g-col>
+              <g-col>3</g-col>
+            </g-row>
+          </g-col>
         </g-row>
         <g-row>
-          <g-col span="2">哈哈</g-col>
-          <g-col span="21" offset="1">哈哈</g-col>
-        </g-row>
-        <g-row>
-          <g-col span="2">哈哈</g-col>
-          <g-col span="6" offset="1">哈哈</g-col>
+          <g-col class="demo-box" span="4"></g-col>
+          <g-col class="demo-box" span="14"></g-col>
+          <g-col class="demo-box" span="6"></g-col>
         </g-row>
       </div>
       <br />
-      <g-input value="张三" @change="onChange"></g-input>
+      <!-- <g-input value="张三" @change="onChange"></g-input>
       <g-input value="李四" disabled></g-input>
       <g-input value="狗子" readonly></g-input>
       <g-input value="狗子" error="姓名不能少于2个字"></g-input>
@@ -56,7 +75,7 @@
         <g-button icon="left">上页</g-button>
         <g-button>内容</g-button>
         <g-button icon="right" icon-position="right">下页</g-button>
-      </g-button-group>
+      </g-button-group> -->
     </div>
     <script src="./src/app.js"></script>
   </body>

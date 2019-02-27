@@ -1,8 +1,6 @@
 <template>
-  <div class="col" :class=colClasses :style="colStyle">
-    <div style="border:1px solid #f00;background:#fc0; height:100px;">
-      <slot></slot>
-    </div>
+  <div class="col" :class=colClasses :style="colStyle">   
+    <slot></slot>
   </div>
 </template>
 <script>
@@ -14,7 +12,7 @@ export default {
   },
   data() {
     return {
-      gutter: 0
+      gutter: 0,
     };
   },
   computed: {
@@ -33,7 +31,6 @@ export default {
 <style lang="scss" scoped>
 .col {
   padding: 0 10px;
-  width: 50%;
   height: 100px;
   $class: col-;
   @for $n from 1 through 24 {
