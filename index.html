@@ -27,31 +27,17 @@
     <div id="root">
       <div style="border:1px solid #7e665a">
         <g-row>
-          <g-col class="demo-box" span="9">
+          <g-col class="demo-box" span="9" :phone="{span:12}" :ipad="{span:8}">
             <g-row>
-              <g-col span="9">
-                <g-row align="left">
-                  <g-col>1</g-col>
-                  <g-col>2</g-col>
-                  <g-col>3</g-col>
-                </g-row>
-              </g-col>
+              <g-col span="9"> </g-col>
             </g-row>
           </g-col>
-          <g-col class="demo-box" span="15">
-            <g-row align="right">
-              <g-col>1</g-col>
-              <g-col>2</g-col>
-              <g-col>3</g-col>
-              <g-col>3</g-col>
-              <g-col>3</g-col>
-            </g-row>
-          </g-col>
+          <g-col class="demo-box" span="15" :phone="{span:12}"></g-col>
         </g-row>
         <g-row>
-          <g-col class="demo-box" span="4"></g-col>
-          <g-col class="demo-box" span="14"></g-col>
-          <g-col class="demo-box" span="6"></g-col>
+          <g-col class="demo-box" span="4" :phone="{span:8}"></g-col>
+          <g-col class="demo-box" span="14" :phone="{span:8}"></g-col>
+          <g-col class="demo-box" span="6" :phone="{span:8}"></g-col>
         </g-row>
       </div>
       <br />
