@@ -34,10 +34,6 @@ export default {
     pc: {
       type: Object,
       validator
-    },
-    widePc: {
-      type: Object,
-      validator
     }
   },
   data() {
@@ -58,9 +54,8 @@ export default {
         this.offset && `offset-${this.offset}`,
         ... (this.phone && [`col-phone-${this.phone.span}`]),
         ... (this.ipad && [`col-ipad-${this.ipad.span}`]),
-        // ...(this.narrowPc && [`col-narrow-pc-${this.narrowPc.span}`]),
-        // ...(this.pc && [`col-pc-${this.pc.span}`]),
-        // ...(this.widePc && [`col-wide-pc-${this.widePc.span}`])
+        ...(this.narrowPc && [`col-narrow-pc-${this.narrowPc.span}`]),
+        ...(this.pc && [`col-pc-${this.pc.span}`])
       ];
     }
   }
@@ -113,15 +108,6 @@ export default {
 
   @media (min-width: 993px) and (max-width: 1200px) {
     $class: col-pc-;
-    @for $n from 1 through 24 {
-      &.#{$class}#{$n} {
-        width: ($n / 24) * 100%;
-      }
-    }
-  }
-
-  @media (min-width: 1201px) {
-    $class: col-wide-pc-;
     @for $n from 1 through 24 {
       &.#{$class}#{$n} {
         width: ($n / 24) * 100%;
