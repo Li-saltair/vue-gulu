@@ -9,6 +9,9 @@
       * {
         box-sizing: border-box;
       }
+      body{
+        margin:0;padding:0;
+      }
       .icon {
         width: 1em;
         height: 1em;
@@ -21,11 +24,16 @@
         background: #7c7;
         border: 1px solid #333;
       }
+      .demo{
+        background:#7b7;
+        min-height:100px;
+        border:1px solid #000;
+      }
     </style>
   </head>
   <body>
     <div id="root">
-      <div>
+      <!-- <div>
         <g-row>
           <g-col class="demo-box" span="4" offset="3" :pc="{span:6}" :narrow-pc="{span:8}" :ipad="{span:12}" :phone="{span:24}"></g-col>
           <g-col class="demo-box" offset="3" span="4" :phone="{span:24}"></g-col>
@@ -34,8 +42,18 @@
           <g-col class="demo-box" span="4" :pc="{span:6}" :narrow-pc="{span:8}" :ipad="{span:12}" :phone="{span:24}"></g-col>
           <g-col class="demo-box" span="4" :pc="{span:6}" :narrow-pc="{span:8}" :ipad="{span:12}" :phone="{span:24}"></g-col>
         </g-row>
-      </div>
-      <br />
+      </div> 
+      <br />-->
+      <g-layout style="height:100vh">
+        <g-sider class="demo">sider</g-sider>
+        
+        <g-layout>
+          <g-header class="demo">header</g-header>
+          <g-content class="demo">content</g-content>
+          <g-footer class="demo">footer</g-footer>
+        </g-layout>
+        
+      </g-layout>
       <!-- <g-input value="张三" @change="onChange"></g-input>
       <g-input value="李四" disabled></g-input>
       <g-input value="狗子" readonly></g-input>
