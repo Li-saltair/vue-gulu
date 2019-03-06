@@ -10,6 +10,7 @@ import Sider from './sider'
 import Content from './content'
 import Layout from './layout'
 import Footer from './footer'
+import Plugin from './plugin'
 
 Vue.component("g-button", Button);
 Vue.component("g-icon", Icon);
@@ -22,6 +23,7 @@ Vue.component("g-header", Header);
 Vue.component("g-sider", Sider);
 Vue.component("g-layout", Layout);
 Vue.component("g-footer", Footer);
+Vue.use(Plugin)
 
 new Vue({
   el: "#root",
@@ -29,9 +31,15 @@ new Vue({
     loading1: false,
     message:"hello"
   },
+  created(){
+  },
   methods:{
     onChange:function(e){
       console.log(e.target.value)
+    },
+    btnClick:function(){
+      console.log(this.$toast)
+      this.$toast('哈哈哈哈哈')
     }
   }
 });
