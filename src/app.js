@@ -34,12 +34,21 @@ new Vue({
   created(){
   },
   methods:{
+    
     onChange:function(e){
       console.log(e.target.value)
     },
     btnClick:function(){
-      console.log(this.$toast)
-      this.$toast('哈哈哈哈哈')
+      this.$toast('哈哈哈',{
+        //enabledHtml:true,
+        closeButton:{
+          text:'hddbdbdd',
+          callback(toast){
+            toast.log()
+            console.log('callback的内容')
+          }
+        }
+      })
     }
   }
 });
