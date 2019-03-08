@@ -32,26 +32,13 @@ new Vue({
     message:"hello"
   },
   created(){
-    this.$toast('哈哈哈',{
-      //enabledHtml:true,
-      position:'middle',
-      closeButton:{
-        text:'hddbdbdd',
-        callback(toast){
-          toast.log()
-          console.log('callback的内容')
-        }
-      },
-      autoClose:false
-    })
   },
   methods:{
-    
     onChange:function(e){
       console.log(e.target.value)
     },
     btnClick:function(){
-      this.$toast('哈哈哈',{
+      this.$toast(`哈哈哈${parseInt(Math.random() * 100)}`,{
         //enabledHtml:true,
         closeButton:{
           text:'hddbdbdd',
