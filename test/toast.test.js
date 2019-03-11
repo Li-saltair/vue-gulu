@@ -21,13 +21,13 @@ describe("Toast", () => {
         }
       }).$mount(div);
 
-      vm.$on("closeToast", (done) => {
+      vm.$on("closeToast", done => {
         expect(document.body.contains(vm.$el)).to.eq(false);
         done();
       });
     });
 
-    it("可以接收closeButton", (done) => {
+    it("可以接收closeButton", () => {
       let callback = sinon.fake();
       const Constructor = Vue.extend(Toast);
       const vm = new Constructor({
@@ -38,18 +38,18 @@ describe("Toast", () => {
           }
         }
       }).$mount();
-      
-      
-      vm.$nextTick(() => {
-        let buttonClose = vm.$el.querySelector(".close");      
+      let buttonClose = vm.$el.querySelector(".close");
+      expect(buttonClose.textContent.trim()).to.eq("关闭");
+
+      setTimeout(() => {
         buttonClose.click();
-        expect(buttonClose.textContent.trim()).to.eq("关闭");
         expect(callback).to.have.been.called;
-        done();
-      });
+      }, 200);
+
+      //done();
     });
 
-    it("可以接收enableHtml", done => {
+    it("可以接收enableHtml", () => {
       const Constructor = Vue.extend(Toast);
       const vm = new Constructor({
         propsData: {
@@ -59,12 +59,9 @@ describe("Toast", () => {
 
       vm.$slots.default = ['<strong id="hihi">哈哈</strong>'];
       vm.$mount();
-      console.log(vm.$el)
-      vm.$nextTick(() => {
-        let strong = vm.$el.querySelector("#hihi");
-        expect(strong).to.exist;
-        done();
-      });
+      let strong = vm.$el.querySelector("#hihi");
+      console.log(strong);
+      expect(strong).to.exist;
     });
 
     it("接受position", () => {

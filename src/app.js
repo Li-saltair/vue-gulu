@@ -48,9 +48,9 @@ new Vue({
       })
     },
     btnClick2:function(){
-      this.$toast(`哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈${parseInt(Math.random() * 100)}`,{
-        //enabledHtml:true,
-        autoClose:false,
+      this.$toast(`<i>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈${parseInt(Math.random() * 100)}</i>`,{
+        enabledHtml:true,
+        /*autoClose:false,
         position:'middle',
         closeButton:{
           text:'dfdvhjd',
@@ -58,7 +58,7 @@ new Vue({
             //toast.log()
             console.log('callback的内容')
           }
-        }
+        }*/
       })
     },
     btnClick3:function(){
