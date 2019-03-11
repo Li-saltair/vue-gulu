@@ -37,13 +37,38 @@ new Vue({
     onChange:function(e){
       console.log(e.target.value)
     },
-    btnClick:function(){
+    btnClick1:function(){
+      this.$toast(`哈哈哈${parseInt(Math.random() * 100)}`,{
+        closeButton: {
+          text: "关闭",
+          callback(){
+            console.log('hdhds')
+          }
+        }
+      })
+    },
+    btnClick2:function(){
+      this.$toast(`哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈${parseInt(Math.random() * 100)}`,{
+        //enabledHtml:true,
+        autoClose:false,
+        position:'middle',
+        closeButton:{
+          text:'dfdvhjd',
+          callback(toast){
+            //toast.log()
+            console.log('callback的内容')
+          }
+        }
+      })
+    },
+    btnClick3:function(){
       this.$toast(`哈哈哈${parseInt(Math.random() * 100)}`,{
         //enabledHtml:true,
+        position:'bottom',
         closeButton:{
-          text:'hddbdbdd',
+          text:'关闭',
           callback(toast){
-            toast.log()
+            //toast.log()
             console.log('callback的内容')
           }
         }

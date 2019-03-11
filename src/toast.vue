@@ -13,12 +13,11 @@ export default {
   name: "G-toast",
   props: {
     autoClose: {
-      type: Boolean,
-      default: true
-    },
-    autoCloseDelay: {
-      type: Number,
-      default: 10
+      type: [Boolean, Number],
+      default: 5,
+      validator(value) {
+        return value === false || typeof value === "number";
+      }
     },
     closeButton: {
       type: Object,
@@ -58,7 +57,7 @@ export default {
       if (this.autoClose) {
         setTimeout(() => {
           this.close();
-        }, this.autoCloseDelay * 1000);
+        }, this.autoClose * 1000);
       }
     },
     updateStyles() {
@@ -69,20 +68,16 @@ export default {
     },
     close() {
       this.$el.remove();
-      this.$emit('close')
+      this.$emit("close");
       this.$destroy();
     },
-    log() {
+    /*log() {
       console.log("loglog");
-    },
+    },*/
     onClickClose() {
       this.close();
-      if (
-        this.closeButton &&
-        this.closeButton.callback &&
-        typeof this.closeButton.callback === "function"
-      ) {
-        this.closeButton.callback(this);
+      if (this.closeButton && typeof this.closeButton.callback === "function") {
+        this.closeButton.callback(this); //this === toast实例
       }
     }
   }
@@ -90,17 +85,17 @@ export default {
 </script>
 <style lang="scss">
 $font-size: 14px;
-  $height: 40px;
-  @keyframes fadeIn {
-      0%{
-          opacity:0;
-          transform: translateY(100%)
-      }
-      100%{
-          opacity:100%;
-          transform: translateY(0%)
-      }
+$height: 40px;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 100%);
   }
+  100% {
+    opacity: 100%;
+    transform: translate(-50%, 0%);
+  }
+}
 .toast {
   animation: fadeIn 1s;
   position: fixed;
@@ -111,7 +106,7 @@ $font-size: 14px;
   background: rgba(0, 0, 0, 0.5);
   left: 50%;
   color: #fff;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0%);
   border-radius: 4px;
   font-size: $font-size;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.05);
@@ -132,13 +127,15 @@ $font-size: 14px;
   }
   &.position-top {
     top: 2px;
+    transform: translate(-50%, 0%);
   }
   &.position-middle {
-      top:50%;
-      transform: translateY(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
   &.position-bottom {
     bottom: 2px;
+    transform: translate(-50%, 0%);
   }
 }
 </style>
