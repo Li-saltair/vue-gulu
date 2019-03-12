@@ -16,7 +16,7 @@
         width: 1em;
         height: 1em;
         vertical-align: -0.15em;
-        fill: currentColor;
+        fill: #f00;
         overflow: hidden;
       }
       .demo-box {
@@ -45,9 +45,24 @@
   </head>
   <body>
     <div id="root">
-      <button @click="btnClick1">top</button>
-      <button @click="btnClick2">middle</button>
-      <button @click="btnClick3">bottom</button>
+      <g-tabs :selected.sync="selectedTab" direction="vertical">
+        <g-tabs-nav>
+          <template slot="actions">
+            <button>
+              settings
+            </button>
+          </template>
+          <g-tabs-item name="1">
+            <g-icon name="setting"></g-icon>
+            体育
+          </g-tab-item>
+          <g-tabs-item name="2">新闻</g-tab-item>
+        </g-tabs-nav>
+        <g-tabs-body>
+          <g-tabs-item name="1">呆不到</g-tab-item>
+          <g-tabs-item name="2">的氛围</g-tab-item>
+        </g-tab-body>
+      </g-tabs>
     </div>
     <script src="./src/app.js"></script>
   </body>

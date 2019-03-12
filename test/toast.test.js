@@ -45,8 +45,6 @@ describe("Toast", () => {
         buttonClose.click();
         expect(callback).to.have.been.called;
       }, 200);
-
-      //done();
     });
 
     it("可以接收enableHtml", () => {
@@ -60,7 +58,6 @@ describe("Toast", () => {
       vm.$slots.default = ['<strong id="hihi">哈哈</strong>'];
       vm.$mount();
       let strong = vm.$el.querySelector("#hihi");
-      console.log(strong);
       expect(strong).to.exist;
     });
 

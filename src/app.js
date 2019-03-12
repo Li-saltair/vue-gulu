@@ -10,7 +10,11 @@ import Sider from './sider'
 import Content from './content'
 import Layout from './layout'
 import Footer from './footer'
-import Plugin from './plugin'
+import Plugin from './plugin'   //toast
+import Tabs from './tabs'
+import TabsItem from './tab-item'
+import TabsNav from './tab-nav'
+import TabsBody from './tab-body'
 
 Vue.component("g-button", Button);
 Vue.component("g-icon", Icon);
@@ -23,13 +27,18 @@ Vue.component("g-header", Header);
 Vue.component("g-sider", Sider);
 Vue.component("g-layout", Layout);
 Vue.component("g-footer", Footer);
+Vue.component("g-tabs", Tabs);
+Vue.component("g-tabs-item", TabsItem);
+Vue.component("g-tabs-nav", TabsNav);
+Vue.component("g-tabs-body", TabsBody);
 Vue.use(Plugin)
 
 new Vue({
   el: "#root",
   data: {
     loading1: false,
-    message:"hello"
+    message:"hello",
+    selectedTab:'1'
   },
   created(){
   },
@@ -48,17 +57,8 @@ new Vue({
       })
     },
     btnClick2:function(){
-      this.$toast(`<i>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈${parseInt(Math.random() * 100)}</i>`,{
+      this.$toast(`<i>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈${parseInt(Math.random() * 100)}</i>`,{
         enabledHtml:true,
-        /*autoClose:false,
-        position:'middle',
-        closeButton:{
-          text:'dfdvhjd',
-          callback(toast){
-            //toast.log()
-            console.log('callback的内容')
-          }
-        }*/
       })
     },
     btnClick3:function(){
