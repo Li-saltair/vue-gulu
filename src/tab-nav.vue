@@ -11,9 +11,11 @@
 export default {
     name:"g-tabsNav",
     inject:['eventBus'],
-    created(){
+    mounted(){
         this.eventBus.$on('update:selected',(item,vm)=>{
-            console.log(vm.$el)
+            let {width,height,top,left} = vm.$el.getBoundingClientRect()
+            this.$refs.line.style.width = `${width}px`
+            this.$refs.line.style.left = `${left}px`
         })
     }
 }
@@ -30,8 +32,8 @@ export default {
         > .line{
             position: absolute;
             bottom:1px;
-            width:100px;
-            border-bottom:1px solid #333
+            border-bottom:2px solid #7c7;
+            transition: all .3s;
         }    
         > .actions-wrapper{
             margin-left:auto;

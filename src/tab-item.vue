@@ -40,7 +40,6 @@ $green:#7b7;
 .tabs-item {
   flex-shrink: 0;
   padding: 0 2em;
-  border: 1px solid #7c7;
   cursor: pointer;
   &.active{
       color:$green;
