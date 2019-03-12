@@ -43,36 +43,6 @@ new Vue({
   created(){
   },
   methods:{
-    onChange:function(e){
-      console.log(e.target.value)
-    },
-    btnClick1:function(){
-      this.$toast(`哈哈哈${parseInt(Math.random() * 100)}`,{
-        closeButton: {
-          text: "关闭",
-          callback(){
-            console.log('hdhds')
-          }
-        }
-      })
-    },
-    btnClick2:function(){
-      this.$toast(`<i>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈${parseInt(Math.random() * 100)}</i>`,{
-        enabledHtml:true,
-      })
-    },
-    btnClick3:function(){
-      this.$toast(`哈哈哈${parseInt(Math.random() * 100)}`,{
-        //enabledHtml:true,
-        position:'bottom',
-        closeButton:{
-          text:'关闭',
-          callback(toast){
-            //toast.log()
-            console.log('callback的内容')
-          }
-        }
-      })
-    }
+    
   }
 });
