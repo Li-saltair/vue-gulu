@@ -30,18 +30,20 @@ export default {
   },
   methods: {
     xxx() {
-      this.eventBus.$emit("update:selected", this.name);
+      this.eventBus.$emit("update:selected", this.name,this);
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+$green:#7b7;
 .tabs-item {
   flex-shrink: 0;
   padding: 0 2em;
   border: 1px solid #7c7;
+  cursor: pointer;
   &.active{
-      background:#7b7;
+      color:$green;
   }
 }
 </style>

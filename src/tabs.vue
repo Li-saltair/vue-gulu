@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 export default {
   name: "gTabs",
   props: {
@@ -21,21 +21,33 @@ export default {
       }
     }
   },
-  data(){
-      return {
-          eventBus:new Vue()
-      }
+  data() {
+    return {
+      eventBus: new Vue()
+    };
   },
-  provide(){
-      return {
-          eventBus:this.eventBus
-      }
+  provide() {
+    return {
+      eventBus: this.eventBus
+    };
   },
   created() {
-    //this.$emit('update:selected',xxx)
   },
-  mounted(){
-      this.eventBus.$emit('update:selected',this.selected)
+  mounted() {
+    this.$children.forEach(vm => {
+      if (vm.$options.name === "g-tabsNav") {
+        vm.$children.forEach(item => {
+          if (
+            item.$options.name === "g-tabsItem" &&
+            item.name === this.selected
+          ) {
+              //console.log(item)
+            this.eventBus.$emit("update:selected", this.selected, item);
+          }
+        });
+      }
+    });
+    //this.eventBus.$emit("update:selected", this.selected);
   }
 };
 </script>
