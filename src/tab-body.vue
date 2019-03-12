@@ -5,7 +5,11 @@
 </template>
 <script>
 export default {
-    name:"g-tabsBody"
+    name:"g-tabsBody",
+    inject:['eventBus'],
+    created(){
+        //console.log(this.eventBus)
+    }
 }
 </script>
 <style lang="scss" scoped>

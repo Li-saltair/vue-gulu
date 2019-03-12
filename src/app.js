@@ -15,6 +15,7 @@ import Tabs from './tabs'
 import TabsItem from './tab-item'
 import TabsNav from './tab-nav'
 import TabsBody from './tab-body'
+import TabsContent from './tab-content'
 
 Vue.component("g-button", Button);
 Vue.component("g-icon", Icon);
@@ -31,14 +32,13 @@ Vue.component("g-tabs", Tabs);
 Vue.component("g-tabs-item", TabsItem);
 Vue.component("g-tabs-nav", TabsNav);
 Vue.component("g-tabs-body", TabsBody);
+Vue.component("g-tabs-content", TabsContent);
 Vue.use(Plugin)
 
 new Vue({
   el: "#root",
   data: {
-    loading1: false,
-    message:"hello",
-    selectedTab:'1'
+    selectedTab:'one'
   },
   created(){
   },
