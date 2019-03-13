@@ -14,6 +14,6 @@ export default {
 </script>
 <style lang="scss" scoped>
     .tabs-body{
-
+        padding:10px 15px;
     }
 </style>
