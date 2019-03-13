@@ -17,24 +17,33 @@ Vue.config.devtools = false;
 
 describe("TabsItem", () => {
   it("存在.", () => {
-    expect(TabsItem).to.be.ok;
+    expect(TabsItem).to.exist;
   });
   describe("props", () => {
-    // it("接受 autoClose", () => {
-    //   //this.timeout(15000)     //设置mocha超时时间，默认超时时间为2秒
-    //   const Constructor = Vue.extend(Toast);
-    //   const div = document.createElement("div");
-    //   document.body.appendChild(div);
-    //   const vm = new Constructor({
-    //     propsData: {
-    //       autoClose: 1
-    //     }
-    //   }).$mount(div);
+    it("tabsItem 接受 name", () => {
+      const Constructor = Vue.extend(TabsItem);
+      const div = document.createElement("div");
+      document.body.appendChild(div);
+      const vm = new Constructor({
+        propsData: {
+          name: "hello"
+        }
+      }).$mount(div);
+      expect(vm.$el.getAttribute("data-name")).to.eq("hello");
+    });
 
-    //   vm.$on("closeToast", done => {
-    //     expect(document.body.contains(vm.$el)).to.eq(false);
-    //     done();
-    //   });
-    // });
+    it("tabsItem 接受 disabled", () => {
+      const Constructor = Vue.extend(TabsItem);
+      const vm = new Constructor({
+        propsData: {
+          disabled: true
+        }
+      }).$mount();
+      expect(vm.$el.classList.contains('disabled')).to.be.true
+      let callback = sinon.fake()
+      vm.$on('click',callback)
+      vm.$el.click()
+      expect(callback).to.have.not.been.called
+    });
   });
 });
