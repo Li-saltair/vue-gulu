@@ -31,14 +31,12 @@ export default {
       eventBus: this.eventBus
     };
   },
-  created() {},
   mounted() {
     if (this.$children.length <= 0) {
       console &&
         console.warn &&
         console.warn("tabs必须以tab-nav和tab-body为直接子组件");
     } else {
-      this.$children.forEach(vm => {});
       this.$children.forEach(vm => {
         if (vm.$options.name === "g-tabsNav") {
           vm.$children.forEach(item => {

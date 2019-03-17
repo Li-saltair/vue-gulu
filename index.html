@@ -47,9 +47,10 @@
     <div id="root">
       <g-tabs :selected.sync="selectedTab" direction="vertical">
         <g-tabs-nav>
-          <template slot="actions">
+          <template v-slot:actions>
+            <!-- 建议以v-slot：actions 来代替slot="actions" -->
             <button>
-              settings
+              是这样的吗
             </button>
           </template>
           <g-tabs-item name="one"><g-icon name="setting"></g-icon>体育</g-tabs-item>

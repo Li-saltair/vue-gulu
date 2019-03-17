@@ -11,11 +11,6 @@
 export default {
   name: "g-tabsNav",
   inject: ["eventBus"],
-  data() {
-    return {
-      x: false
-    };
-  },
   mounted() {
     this.eventBus.$on("update:selected", (item, vm) => {
       let { width, height, top, left } = vm.$el.getBoundingClientRect();
