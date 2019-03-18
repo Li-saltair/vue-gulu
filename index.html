@@ -9,8 +9,9 @@
       * {
         box-sizing: border-box;
       }
-      body{
-        margin:0;padding:0;
+      body {
+        margin: 0;
+        padding: 0;
       }
       .icon {
         width: 1em;
@@ -19,36 +20,18 @@
         fill: #f00;
         overflow: hidden;
       }
-      .demo-box {
-        height: 50px;
-        background: #7c7;
-        border: 1px solid #333;
-      }
-      .demo{
-        background:#7b7;
-        min-height:100px;
-        border:1px solid #000;
-      }
-      .sider{
-        background:#7a7;
-        width:200px;
-      }
-      .header{
-        background:#7b7;
-        height:100px;
-      }
-      .footer{
-        background:#7c7;
-        height:50px;
+      #root {
+        padding-left: 100px;
+        padding-top: 100px;
       }
     </style>
   </head>
   <body>
     <div id="root">
-      <g-tabs :selected.sync="selectedTab" direction="vertical">
+      <!-- <g-tabs :selected.sync="selectedTab" direction="vertical">
         <g-tabs-nav>
           <template v-slot:actions>
-            <!-- 建议以v-slot：actions 来代替slot="actions" -->
+             建议以v-slot：actions 来代替slot="actions" 
             <button>
               是这样的吗
             </button>
@@ -62,7 +45,23 @@
           <g-tabs-content name="two">的氛围</g-tabs-content>
           <g-tabs-content name="three">哈哈哈的火车我</g-tabs-content>
         </g-tabs-body>
-      </g-tabs>
+      </g-tabs> -->
+      <g-popover>
+        <template>
+          <div>多久发货的升级版房价还是</div>
+        </template>
+        <template v-slot:trigger>
+          <button>jsdsknh</button>
+        </template>
+      </g-popover>
+      <g-popover>
+        <template>
+          <div>的设计更是</div>
+        </template>
+        <template v-slot:trigger>
+          <button>jsdsknh</button>
+        </template>
+      </g-popover>
     </div>
     <script src="./src/app.js"></script>
   </body>
