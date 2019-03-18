@@ -23,6 +23,7 @@
       #root {
         padding-left: 100px;
         padding-top: 100px;
+        border:1px solid #7c7
       }
     </style>
   </head>
@@ -47,21 +48,15 @@
         </g-tabs-body>
       </g-tabs> -->
       <g-popover>
-        <template>
+        <template  v-slot:content>
           <div>多久发货的升级版房价还是</div>
         </template>
-        <template v-slot:trigger>
-          <button>jsdsknh</button>
-        </template>
-      </g-popover>
-      <g-popover>
         <template>
-          <div>的设计更是</div>
-        </template>
-        <template v-slot:trigger>
           <button>jsdsknh</button>
         </template>
       </g-popover>
+
+      
     </div>
     <script src="./src/app.js"></script>
   </body>
