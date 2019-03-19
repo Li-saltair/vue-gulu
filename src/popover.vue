@@ -31,8 +31,10 @@ export default {
             left
           } = this.$refs.popoverButton.getBoundingClientRect();
           console.log(this.$refs.popoverWrapper);
-          this.$refs.popoverWrapper.style.top = `${top}px`
-          this.$refs.popoverWrapper.style.left = left + "px";
+          let scrollHeight = window.scrollY;
+          let scrollX = window.scrollX;
+          this.$refs.popoverWrapper.style.top = `${top + scrollHeight}px`;
+          this.$refs.popoverWrapper.style.left = `${left + scrollX}px`;
           let eventHandler = () => {
             this.visible = false;
             //弹出消失之后需要移除监听器
@@ -55,6 +57,6 @@ export default {
 .content {
   position: absolute;
   border: 1px solid #f00;
-  transform: translateY(-100%)
+  transform: translateY(-100%);
 }
 </style>

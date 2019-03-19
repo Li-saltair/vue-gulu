@@ -41,9 +41,8 @@ export default {
       if (this.disabled) {
         return;
       }
-      this.eventBus &&
-      this.eventBus.$emit("update:selected", this.name, this);
-      this.$emit('click',this)
+      this.eventBus && this.eventBus.$emit("update:selected", this.name, this);
+      this.$emit("click", this);
     }
   }
 };
