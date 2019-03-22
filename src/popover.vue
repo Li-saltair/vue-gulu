@@ -1,9 +1,9 @@
 <template>
-  <div class="wrapper" @click.stop="xxx">
-    <div class="content" ref="popoverWrapper" v-if="visible" @click.stop>
+  <div class="wrapper" @click="popClick" ref="popover">
+    <div class="content" ref="popoverWrapper" v-if="visible">
       <slot name="content"></slot>
     </div>
-    <span ref="popoverButton">
+    <span ref="popoverButton" style="display:inline-block">
       <slot></slot>
     </span>
   </div>
@@ -16,34 +16,58 @@ export default {
       visible: false
     };
   },
-  mounted() {},
-  computed: {},
   methods: {
-    xxx() {
-      this.visible = !this.visible;
-      if (this.visible) {
-        this.$nextTick(() => {
-          document.body.appendChild(this.$refs.popoverWrapper);
-          let {
-            width,
-            height,
-            top,
-            left
-          } = this.$refs.popoverButton.getBoundingClientRect();
-          console.log(this.$refs.popoverWrapper);
-          let scrollHeight = window.scrollY;
-          let scrollX = window.scrollX;
-          this.$refs.popoverWrapper.style.top = `${top + scrollHeight}px`;
-          this.$refs.popoverWrapper.style.left = `${left + scrollX}px`;
-          let eventHandler = () => {
-            this.visible = false;
-            //弹出消失之后需要移除监听器
-            document.removeEventListener("click", eventHandler);
-          };
-          document.addEventListener("click", eventHandler);
-        });
-      } else {
-        console.log("vm 隐藏");
+    position() {
+      document.body.appendChild(this.$refs.popoverWrapper);
+      let {
+        width,
+        height,
+        top,
+        left
+      } = this.$refs.popoverButton.getBoundingClientRect();
+
+      let scrollHeight = window.scrollY;
+      let scrollX = window.scrollX;
+      this.$refs.popoverWrapper.style.top = `${top + scrollHeight}px`;
+      this.$refs.popoverWrapper.style.left = `${left + scrollX}px`;
+    },
+    onClickDocument(e) {
+      //当触发事件是弹出的部分，那么什么也不做
+      if (
+        this.$refs.popover &&
+        (this.$refs.popover === e.target ||
+          this.$refs.popoverWrapper.contains(e.target))
+      ) {
+        return;
+      }
+      this.close();
+      // else {
+      //   this.visible = false;
+      //   //弹出消失之后需要移除监听器
+      //   document.removeEventListener("click", eventHandler);
+      // }
+    },
+    close() {
+      this.visible = false;
+      document.removeEventListener("click", this.onClickDocument);
+    },
+    open() {
+      this.visible = true;
+      //this.$nextTick(() => {
+      setTimeout(() => {
+        this.position();
+        document.addEventListener("click", this.onClickDocument);
+      }, 0);
+
+      //});
+    },
+    popClick(event) {
+      if (this.$refs.popoverButton.contains(event.target)) {
+        if (this.visible === true) {
+          this.close();
+        } else {
+          this.open();
+        }
       }
     }
   }
@@ -52,6 +76,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   display: inline-block;
+  vertical-align: top;
   position: relative;
 }
 .content {

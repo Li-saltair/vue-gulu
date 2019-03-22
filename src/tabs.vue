@@ -32,11 +32,18 @@ export default {
     };
   },
   mounted() {
-    if (this.$children.length <= 0) {
-      console &&
-        console.warn &&
-        console.warn("tabs必须以tab-nav和tab-body为直接子组件");
-    } else {
+    this.checkChildren();
+    this.selectTab();
+  },
+  methods: {
+    checkChildren() {
+      if (this.$children.length <= 0) {
+        console &&
+          console.warn &&
+          console.warn("tabs必须以tab-nav和tab-body为直接子组件");
+      }
+    },
+    selectTab() {
       this.$children.forEach(vm => {
         if (vm.$options.name === "g-tabsNav") {
           vm.$children.forEach(item => {
