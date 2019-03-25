@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper" @click="popClick" ref="popover">
-    <div class="content" ref="popoverWrapper" v-if="visible">
+    <div
+      class="content"
+      ref="popoverWrapper"
+      v-if="visible"
+      :class="{[`position-${position}`]:true}"
+    >
       <slot name="content"></slot>
     </div>
     <span ref="popoverButton" style="display:inline-block">
@@ -16,36 +21,66 @@ export default {
       visible: false
     };
   },
+  props: {
+    position: {
+      type: String,
+      default: "top",
+      validator(value) {
+        return ["top", "left", "right", "bottom"].indexOf(value) >= 0;
+      }
+    }
+  },
   methods: {
-    position() {
-      document.body.appendChild(this.$refs.popoverWrapper);
-      let {
+    positionContent() {
+      const { popoverWrapper, popoverButton } = this.$refs;
+      document.body.appendChild(popoverWrapper);
+      const {
         width,
         height,
         top,
         left
       } = this.$refs.popoverButton.getBoundingClientRect();
-
-      let scrollHeight = window.scrollY;
-      let scrollX = window.scrollX;
-      this.$refs.popoverWrapper.style.top = `${top + scrollHeight}px`;
-      this.$refs.popoverWrapper.style.left = `${left + scrollX}px`;
+      const scrollHeight = window.scrollY;
+      const scrollX = window.scrollX;
+      const { height: height2 } = popoverWrapper.getBoundingClientRect();
+      let x = {
+        top:{
+          top:top + scrollHeight,
+          left:left + scrollX
+        },
+        left:{
+          top:top + scrollHeight - Math.abs(height2 - height) / 2,
+          left:left + scrollX
+        },
+        right:{
+          top:top + scrollHeight - Math.abs(height2 - height) / 2,
+          left:left + width + scrollX
+        },
+        bottom:{
+          left:left + scrollX,
+          top:top + height + scrollHeight
+        },
+      }
+      popoverWrapper.style.left = x[this.position].left + 'px'
+      popoverWrapper.style.top = x[this.position].top + 'px'
     },
     onClickDocument(e) {
       //当触发事件是弹出的部分，那么什么也不做
       if (
         this.$refs.popover &&
         (this.$refs.popover === e.target ||
+          this.$refs.popover.contains(e.target))
+      ) {
+        return;
+      }
+      if (
+        this.$refs.popoverWrapper &&
+        (this.$refs.popoverWrapper === e.target ||
           this.$refs.popoverWrapper.contains(e.target))
       ) {
         return;
       }
       this.close();
-      // else {
-      //   this.visible = false;
-      //   //弹出消失之后需要移除监听器
-      //   document.removeEventListener("click", eventHandler);
-      // }
     },
     close() {
       this.visible = false;
@@ -55,7 +90,7 @@ export default {
       this.visible = true;
       //this.$nextTick(() => {
       setTimeout(() => {
-        this.position();
+        this.positionContent();
         document.addEventListener("click", this.onClickDocument);
       }, 0);
 
@@ -74,6 +109,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+$border-color: #ccc;
+$border-radius: 4px;
 .wrapper {
   display: inline-block;
   vertical-align: top;
@@ -81,7 +118,80 @@ export default {
 }
 .content {
   position: absolute;
-  border: 1px solid #f00;
-  transform: translateY(-100%);
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 0.4em 0.8em;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  font-size: 12px;
+  max-width: 26em;
+  background: #fff;
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    border: 10px solid transparent;
+  }
+  &.position-top {
+    margin-top: -10px;
+    transform: translateY(-100%);
+    &::before,
+    &::after {
+      position: absolute;
+      top: 100%;
+      content: "";
+      border-top: 10px solid #ccc;
+    }
+    &::after {
+      top: calc(100% - 1px);
+      border-top: 10px solid #fff;
+    }
+  }
+  &.position-bottom {
+    margin-top: 10px;
+    &::before,
+    &::after {
+      position: absolute;
+      bottom: 100%;
+      content: "";
+      border-bottom: 10px solid #ccc;
+    }
+    &::after {
+      bottom: calc(100% - 1px);
+      border-bottom: 10px solid #fff;
+    }
+  }
+  &.position-left {
+    transform: translateX(-100%);
+    margin-left: -10px;
+    &::before,
+    &::after {
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &::before {
+      border-left: 10px solid #ccc;
+    }
+    &::after {
+      left: calc(100% - 1px);
+      border-left: 10px solid #fff;
+    }
+  }
+  &.position-right {
+    margin-left: 10px;
+    &::before,
+    &::after {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &::before {
+      right:100%;
+      border-right: 10px solid #ccc;
+    }
+    &::after {
+      right: calc(100% - 1px);
+      border-right: 10px solid #fff;
+    }
+  }
 }
 </style>
