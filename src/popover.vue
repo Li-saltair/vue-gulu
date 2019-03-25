@@ -28,6 +28,53 @@ export default {
       validator(value) {
         return ["top", "left", "right", "bottom"].indexOf(value) >= 0;
       }
+    },
+    trigger: {
+      type: String,
+      default: "click",
+      validator(value) {
+        return ["click", "hover"].indexOf(value) >= 0;
+      }
+    }
+  },
+  computed: {
+    openEvent() {
+      if (this.trigger == "click") {
+        return "click";
+      } else {
+        return "mouseenter";
+      }
+    },
+    closeEvent() {
+      if (this.trigger == "click") {
+        return "click";
+      } else {
+        return "mouseleave";
+      }
+    }
+  },
+  mounted() {
+    if(this.trigger === 'click'){
+      this.$refs.popover.addEventListener('click',this.onClick)
+    } else {
+      this.$refs.popover.addEventListener('mouseenter',()=>{
+        this.open()
+      })
+      this.$refs.popover.addEventListener('mouseleave',()=>{
+        this.close()
+      })
+    }
+  },
+  destroyed(){
+    if(this.trigger === 'click'){
+      this.$refs.popover.removeEventListener('click',this.onClick)
+    } else {
+      this.$refs.popover.removeEventListener('mouseenter',()=>{
+        this.open()
+      })
+      this.$refs.popover.removeEventListener('mouseleave',()=>{
+        this.close()
+      })
     }
   },
   methods: {
@@ -43,26 +90,26 @@ export default {
       const scrollHeight = window.scrollY;
       const scrollX = window.scrollX;
       const { height: height2 } = popoverWrapper.getBoundingClientRect();
-      let x = {
-        top:{
-          top:top + scrollHeight,
-          left:left + scrollX
+      let positions = {
+        top: {
+          top: top + scrollHeight,
+          left: left + scrollX
         },
-        left:{
-          top:top + scrollHeight - Math.abs(height2 - height) / 2,
-          left:left + scrollX
+        left: {
+          top: top + scrollHeight - Math.abs(height2 - height) / 2,
+          left: left + scrollX
         },
-        right:{
-          top:top + scrollHeight - Math.abs(height2 - height) / 2,
-          left:left + width + scrollX
+        right: {
+          top: top + scrollHeight - Math.abs(height2 - height) / 2,
+          left: left + width + scrollX
         },
-        bottom:{
-          left:left + scrollX,
-          top:top + height + scrollHeight
-        },
-      }
-      popoverWrapper.style.left = x[this.position].left + 'px'
-      popoverWrapper.style.top = x[this.position].top + 'px'
+        bottom: {
+          left: left + scrollX,
+          top: top + height + scrollHeight
+        }
+      };
+      popoverWrapper.style.left = positions[this.position].left + "px";
+      popoverWrapper.style.top = positions[this.position].top + "px";
     },
     onClickDocument(e) {
       //当触发事件是弹出的部分，那么什么也不做
@@ -185,7 +232,7 @@ $border-radius: 4px;
       transform: translateY(-50%);
     }
     &::before {
-      right:100%;
+      right: 100%;
       border-right: 10px solid #ccc;
     }
     &::after {
