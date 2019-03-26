@@ -35,16 +35,33 @@ describe("Popover", () => {
         done()
       })
     },50)
-      
-    
-      //console.log(vm.$el.outerHTML)
-    // setTimeout(() => {
-    //   const popover = vm.$el.querySelector(".row");
-    //   expect(getComputedStyle(rows).marginLeft).to.eq("-10px");
-    //   done();
-    //   vm.$el.remove();
-    //   vm.$destroy();
-    // }, 0);
+  });
+
+  xit("可以设置trigger", (done) => {
+    Vue.component("g-popover", Popover);
+    Vue.component("g-button", Button);
+    const div = document.createElement("div");
+    document.body.appendChild(div);
+    div.innerHTML = `
+    <g-popover position="bottom" ref="a" trigger='hover'>
+      <template v-slot:content>
+        <div>弹出的内容？？？？？？？</div>
+      </template>
+      <g-button>点我</g-button>
+    </g-popover>
+    `;
+    const vm = new Vue({
+      el: div
+    });
+    setTimeout(()=>{
+      let event = new Event('mouseenter')
+      vm.$el.dispatchEvent(event)
+      vm.$nextTick(()=>{
+        //console.log(vm.$refs.a.$refs.popoverWrapper) vm是组件实例
+        expect(vm.$refs.a.$refs.popoverWrapper).to.exist
+        done()
+      })
+    },50)
   });
 
 });
