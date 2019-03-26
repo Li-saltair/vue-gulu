@@ -23,7 +23,7 @@
       #root {
         padding-left: 100px;
         padding-top: 100px;
-        border:1px solid #7c7
+        border: 1px solid #7c7;
       }
     </style>
   </head>
@@ -47,40 +47,48 @@
           <g-tabs-content name="three">哈哈哈的火车我</g-tabs-content>
         </g-tabs-body>
       </g-tabs> -->
-      
-      <g-popover position='bottom'>
-        <template slot='content'>
-          <div >弹出的内容</div>
+
+      <g-popover position="bottom">
+        <template v-slot:content>
+          <div>弹出的内容</div>
         </template>
         <g-button>点我</g-button>
       </g-popover>
-      <g-popover position='left'>
-        <template slot='content'>
-          <div >数据汇聚活动举办v从数据汇聚活动举办v从数据汇聚活动举办v从数据汇聚活动举办v从</div>
+      <g-popover position="right">
+        <template v-slot:content="{close}">
+          <div>
+            数据汇聚活动举办
+            <g-button @click="close">按钮按钮</g-button>
+          </div>
         </template>
         <g-button>点我</g-button>
       </g-popover>
-      <g-popover position='right'>
-        <template slot='content'>
-          <div >数据汇聚活动举办v从数据汇聚活动举办v从数据汇聚活动举办v从数据汇聚活动举办v从</div>
+      <g-popover position="top">
+        <!-- 2.6.0以上的版本的新写法，建议使用新写法 -->
+        <template v-slot:content="{close}">
+          <div>
+            递交国会代表所代表的是<br />从数据汇聚活动举办v从数据汇聚活动举办v从
+            <br>
+            <g-button @click="close">按钮按钮</g-button>
+          </div>
         </template>
         <g-button>点我</g-button>
       </g-popover>
-      <g-popover position='bottom' trigger="hover">
-        <template slot='content'>
-          <div >弹出的内容</div>
+      <g-popover position="bottom" trigger="hover">
+        <template v-slot:content>
+          <div>弹出的内容</div>
         </template>
         <g-button>点我dewew</g-button>
       </g-popover>
       <g-popover trigger="hover">
-        <template slot='content'>
-          <div >弹出的内容</div>
+        <template v-slot:content>
+          <div>弹出的内容</div>
         </template>
         <g-button>点我dewew</g-button>
       </g-popover>
       <g-popover>
-        <template slot='content'>
-          <div >弹出的内容</div>
+        <template v-slot:content>
+          <div>弹出的内容</div>
         </template>
         <g-button>点我Gr</g-button>
       </g-popover>
