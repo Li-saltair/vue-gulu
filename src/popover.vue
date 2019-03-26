@@ -187,6 +187,7 @@ $border-radius: 4px;
       top: 100%;
       content: "";
       border-top: 10px solid #ccc;
+      border-bottom:none;
     }
     &::after {
       top: calc(100% - 1px);
@@ -201,6 +202,7 @@ $border-radius: 4px;
       bottom: 100%;
       content: "";
       border-bottom: 10px solid #ccc;
+      border-top:none;
     }
     &::after {
       bottom: calc(100% - 1px);
@@ -215,6 +217,7 @@ $border-radius: 4px;
       left: 100%;
       top: 50%;
       transform: translateY(-50%);
+      border-right:none;
     }
     &::before {
       border-left: 10px solid #ccc;
@@ -230,6 +233,7 @@ $border-radius: 4px;
     &::after {
       top: 50%;
       transform: translateY(-50%);
+      border-left:none
     }
     &::before {
       right: 100%;
