@@ -17,6 +17,8 @@ import TabsNav from './tab-nav'
 import TabsBody from './tab-body'
 import TabsContent from './tab-content'
 import Popover from './popover'
+import Collapse from './collapse'
+import CollapseItem from './collapse-item'
 
 Vue.component("g-button", Button);
 Vue.component("g-icon", Icon);
@@ -36,16 +38,13 @@ Vue.component("g-tabs-nav", TabsNav);
 Vue.component("g-tabs-body", TabsBody);
 Vue.component("g-tabs-content", TabsContent);
 Vue.component("g-popover", Popover);
+Vue.component("g-collapse", Collapse);
+Vue.component("g-collapse-item", CollapseItem);
 
 
 new Vue({
   el: "#root",
   data: {
     selectedTab:'one'
-  },
-  created(){
-  },
-  methods:{
-    
   }
 });
