@@ -1,4 +1,5 @@
 module.exports = {
+    base:'/vue-gulu/',
     title:'UI',
     description:'世界顶级的和',
     themeConfig: {
