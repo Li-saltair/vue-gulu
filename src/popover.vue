@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     positionContent() {
-      const { popoverWrapper, popoverButton } = this.$refs;
+      const { popoverWrapper, popoverButton } = this.$refs
       document.body.appendChild(popoverWrapper);
       const {
         width,
