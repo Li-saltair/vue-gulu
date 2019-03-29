@@ -77,6 +77,9 @@ $border-color-hover: #777;
     order: 2;
     font-size: $font-size;
   }
+  &[disabled]{
+    cursor:no-drop;
+  }
   &.icon-right {
     > .icon {
       margin-left: 0.3em;
