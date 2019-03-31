@@ -52,7 +52,7 @@
         </g-tabs-body>
       </g-tabs> -->
 
-      <g-popover position="bottom">
+      <!-- <g-popover position="bottom">
         <template v-slot:content>
           <div>弹出的内容</div>
         </template>
@@ -69,7 +69,7 @@
       </g-popover>
       <g-popover position="top">
         <!-- 2.6.0以上的版本的新写法，建议使用新写法 -->
-        <template v-slot:content="{close}">
+        <!--<template v-slot:content="{close}">
           <div>
             递交国会代表所代表的是<br />从数据汇聚活动举办v从数据汇聚活动举办v从
             <br>
@@ -104,7 +104,10 @@
           <g-collapse-item title="标题3" name="3">对接客户的上班的时间</g-collapse-item>
       </g-collapse>
       {{selectedTab}}
+    </div> -->
+    <g-cascader :source="source"></g-cascader>
     </div>
+
     <script src="./src/app.js"></script>
   </body>
 </html>
