@@ -31,6 +31,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import 'var';
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -39,15 +40,6 @@ export default {
     transform: rotate(360deg);
   }
 }
-$button-height: 32px;
-$font-size: 13px;
-$background: #7c7;
-$button-bg: #fff;
-$button-active-bg: #f6f6f6;
-$border-radius: 4px;
-$color: #333;
-$border-color: #aaa;
-$border-color-hover: #777;
 .g-button {
   vertical-align: middle;
   font-size: $font-size;
