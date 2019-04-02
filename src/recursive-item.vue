@@ -1,8 +1,15 @@
 <template>
   <div class="recursive-item">
-    {{sourceItem.label}}
-    <div v-if="sourceItem.children">
-      <recursive-item v-for="item in sourceItem.children" :key="item.value" :sourceItem="item"></recursive-item>
+    <div class="left">
+      <div
+        class="level-content"
+        v-for="leftItem in sourceItem"
+        :key="leftItem.label"
+        @click="leftSelected=leftItem"
+      >{{leftItem.label}}</div>
+    </div>
+    <div class="right" v-if="rightItems">
+      <recursiveItem :sourceItem="rightItems"></recursiveItem>
     </div>
   </div>
 </template>
@@ -11,15 +18,37 @@ export default {
   name: "recursiveItem",
   props: {
     sourceItem: {
-      type: Object
+      type: Array
+    }
+  },
+  data() {
+    return {
+      leftSelected: null
+    };
+  },
+  computed: {
+    rightItems() {
+      if (this.leftSelected && this.leftSelected.children) {
+        return this.leftSelected.children;
+      } else {
+        return null;
+      }
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 .recursive-item {
-  margin: 4px;
-  border: 1px solid #f66;
+  display: flex;
+  .left {
+    border: 1px solid #f66;
+  }
+  .right {
+    margin-top: -1px;
+  }
+  .level-content{
+    padding:2px;
+  }
 }
 </style>
 

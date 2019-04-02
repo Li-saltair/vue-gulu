@@ -108,6 +108,15 @@ new Vue({
           value: 'quanzhou',
           label: '泉州'
         }]
+      },{
+        value:'shandong',
+        label:'山东',
+        children:[
+          {
+            value:'jinan',
+            label:'济南'
+          }
+        ]
       }
     ]
   }
