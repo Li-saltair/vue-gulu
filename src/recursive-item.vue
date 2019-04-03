@@ -72,6 +72,7 @@ export default {
   .left {
     padding-top:.5em;
     border-left:1px solid #efefef;
+    overflow-y:scroll;
   }
   .right {
   }

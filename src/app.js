@@ -20,6 +20,7 @@ import Popover from './popover'
 import Collapse from './collapse'
 import CollapseItem from './collapse-item'
 import Cascader from './cascader'
+import db from './_db'
 
 Vue.component("g-button", Button);
 Vue.component("g-icon", Icon);
@@ -43,83 +44,17 @@ Vue.component("g-collapse", Collapse);
 Vue.component("g-collapse-item", CollapseItem);
 Vue.component("g-cascader", Cascader);
 
+function ajax(pid=0){
+  return db.filter(item=>item.pid == pid)
+}
+console.log(ajax())
 
 new Vue({
   el: "#root",
   data: {
     selectedTab:['1','2'],
     selected:[],
-    source:[
-      {
-        value: 'zhejiang',
-        label: '浙江',
-        children: [{
-          value: 'hangzhou',
-          label: '杭州',
-          children: [{
-            value: 'xihu',
-            label: '西湖区',
-          },{
-            value: 'gongshu',
-            label: '拱墅区',
-          },{
-            value: 'shangcheng',
-            label: '上城区',
-          },{
-            value: 'xiacheng',
-            label: '下城区',
-          }]
-        },{
-          value: 'jiaxing',
-          label: '嘉兴',
-          children: [{
-            value: 'nanhu',
-            label: '南湖区',
-          },{
-            value: 'xiuzhou',
-            label: '秀洲区',
-          }]
-        },{
-          value: 'huzhou',
-          label: '湖州'
-        }]
-      },{
-        value: 'fujian',
-        label: '福建',
-        children: [{
-          value: 'fuzhou',
-          label: '福州',
-          children: [{
-            value: 'gulou',
-            label: '鼓楼区',
-          },{
-            value: 'taijiang',
-            label: '台江区',
-          },{
-            value: 'cangshan',
-            label: '仓山区',
-          },{
-            value: 'mawei',
-            label: '马尾区',
-          }]
-        },{
-          value: 'xiamen',
-          label: '厦门'
-        },{
-          value: 'quanzhou',
-          label: '泉州'
-        }]
-      },{
-        value:'shandong',
-        label:'山东山东山东',
-        children:[
-          {
-            value:'jinan',
-            label:'济南'
-          }
-        ]
-      }
-    ]
+    source:ajax()
   },
   methods:{
 
