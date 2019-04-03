@@ -48,6 +48,7 @@ new Vue({
   el: "#root",
   data: {
     selectedTab:['1','2'],
+    selected:[],
     source:[
       {
         value: 'zhejiang',
@@ -110,7 +111,7 @@ new Vue({
         }]
       },{
         value:'shandong',
-        label:'山东',
+        label:'山东山东山东',
         children:[
           {
             value:'jinan',
@@ -119,5 +120,8 @@ new Vue({
         ]
       }
     ]
+  },
+  methods:{
+
   }
 });

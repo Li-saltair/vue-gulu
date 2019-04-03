@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="popover" v-if="popoverVisible">
-      <recursive-item :sourceItem="source"></recursive-item>
+      <recursive-item :sourceItem="source" :height="popoverHeight" @update:selected="onUpdate" :selected="selected" ></recursive-item>
     </div>
   </div>
 </template>
@@ -17,6 +17,13 @@ export default {
     source: {
       type: Array,
       required: true
+    },
+    popoverHeight: {
+      type: String
+    },
+    selected: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -24,19 +31,30 @@ export default {
       popoverVisible: false
     };
   },
-  computed: {}
+  methods:{
+    onUpdate(value){
+      this.$emit('update:selected',value)
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
 @import "var";
 .cascader {
+  position: relative;
   .trigger {
     width: 100px;
     height: 32px;
     border: 1px solid #7c7;
   }
   .popover {
-    height: 200px;
+    position: absolute;
+    min-height: 150px;
+    background: #fff;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    box-shadow: $box-shadow;
   }
 }
 </style>
