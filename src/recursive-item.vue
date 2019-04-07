@@ -50,7 +50,6 @@ export default {
     }
   },
   methods:{
-    //
     onClickLabel(item){
       //不建议子组件直接控制父组件
       //this.$set(this.selected,this.level,item.label)
@@ -73,8 +72,6 @@ export default {
     padding-top:.5em;
     border-left:1px solid #efefef;
     overflow-y:scroll;
-  }
-  .right {
   }
   .level-content{
     padding:.5em 1em;

@@ -105,7 +105,7 @@
       </g-collapse>
       {{selectedTab}}
     </div> -->
-    <g-cascader :source="source" popover-height="300px" :selected.sync="selected" ></g-cascader>  
+    <g-cascader :source.sync="source" popover-height="300px" :selected.sync="selected" @update:selected="changeData" :load-data="loadData"></g-cascader>  
     </div>
 
     <script src="./src/app.js"></script>
