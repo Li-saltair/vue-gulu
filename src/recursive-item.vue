@@ -7,60 +7,78 @@
         :key="leftItem.label"
         @click="onClickLabel(leftItem)"
       >
-      {{leftItem.label}}
-      <span class="turn-right" v-if="leftItem.children"><Icon name="right"></Icon></span>
+        {{leftItem.label}}
+        <span class="turn-right" v-if="loadData ? !leftItem.isLeaf :leftItem.children">
+          <Icon name="right"></Icon>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems" ref="right">
-      <recursive-item :sourceItem="rightItems" :height="height" :level="level+1" :selected="selected" @update:selected="onChildrenUpdate"></recursive-item>
+      <recursive-item
+        :sourceItem="rightItems"
+        :height="height"
+        :level="level+1"
+        :selected="selected"
+        @update:selected="onChildrenUpdate"
+      ></recursive-item>
     </div>
   </div>
 </template>
 <script>
-import Icon from './icon'
+import Icon from "./icon";
 export default {
   name: "recursiveItem",
-  components:{
+  components: {
     Icon
   },
   props: {
     sourceItem: {
       type: Array
     },
-    height:{
-      type:String
+    height: {
+      type: String
     },
-    selected:{
-      type:Array,
-      default:()=>[]
+    selected: {
+      type: Array,
+      default: () => []
     },
-    level:{
-      type:Number,
-      default:0
+    level: {
+      type: Number,
+      default: 0
+    },
+    loadData:{
+      type:Function
     }
   },
   computed: {
     rightItems() {
-      let currentSelected = this.selected[this.level]
-      if (currentSelected && currentSelected.children) {
-        return currentSelected.children;
-      } else {
-        return null;
+      console.log(this.selected)
+      if (this.selected[this.level]) {
+        let selectObj = this.sourceItem.filter(
+          item => item.label === this.selected[this.level].label
+        );
+        if (
+          selectObj &&
+          selectObj[0].children &&
+          selectObj[0].children.length > 0
+        ) {
+          return selectObj[0].children;
+        }
       }
     }
   },
-  methods:{
-    onClickLabel(item){
+  methods: {
+    onClickLabel(item) {
       //不建议子组件直接控制父组件
       //this.$set(this.selected,this.level,item.label)
-      let copy = JSON.parse(JSON.stringify(this.selected))
-      copy[this.level] = item
-      copy.splice(this.level+1)
-      this.$emit('update:selected',copy)
+      let copy = JSON.parse(JSON.stringify(this.selected));
+      copy[this.level] = item;
+      copy.splice(this.level + 1);
+      this.$emit("update:selected", copy);
     },
     //递归时第N层需要向上传递selected
-    onChildrenUpdate(newSelected){
-      this.$emit('update:selected',newSelected)
+    onChildrenUpdate(newSelected) {
+      this.$emit("update:selected", newSelected);
     }
   }
 };
@@ -69,19 +87,23 @@ export default {
 .recursive-item {
   display: flex;
   .left {
-    padding-top:.5em;
-    border-left:1px solid #efefef;
-    overflow-y:scroll;
+    padding-top: 0.5em;
+    border-left: 1px solid #efefef;
+    overflow-y: scroll;
   }
-  .level-content{
-    padding:.5em 1em;
+  .level-content {
+    padding: 0.5em 1em;
     cursor: pointer;
-    .turn-right{
-      margin-left:1em;
-      .icon{
-        width:.8em;
-        height:.8em;
-        fill:#999
+    &:hover{
+      background:#f1fff1;
+    }
+    .turn-right {
+      margin-left: 1em;
+      .icon {
+        width: 0.8em;
+        height: 0.8em;
+        fill: #999;
+        margin-left:auto;
       }
     }
   }

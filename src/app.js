@@ -45,11 +45,24 @@ Vue.component("g-collapse-item", CollapseItem)
 Vue.component("g-cascader", Cascader)
 
 function ajax(pid = 0) {
+  //pid是上一级的ID
   return db.filter(item => item.pid == pid)
 }
 function ajax2(pid = 0) {
   return new Promise((resolve, reject) => {
     let result = db.filter(item => item.pid == pid)
+    //判断是否叶子节点
+    result.forEach(node => {
+      if (
+        db.filter(item => 
+          item.pid === node.id
+        ).length > 0
+      ) {
+        node.isLeaf = false
+      } else {
+        node.isLeaf = true
+      }
+    })
     resolve(result)
   })
 }
@@ -66,22 +79,22 @@ new Vue({
       this.source = r
     })
   },
-  updated(){
-
-  },
+  updated() {},
   methods: {
-    changeData(){
+    changeData() {
       //console.log(this.selected[0].label)
-      ajax2(this.selected[0].id).then(r=>{
-        let lastLevelSelected = this.source.filter(item=>item.id == this.selected[0].id)[0]
+      ajax2(this.selected[0].id).then(r => {
+        let lastLevelSelected = this.source.filter(
+          item => item.id == this.selected[0].id
+        )[0]
         //console.log(lastLevelSelected)
-        this.$set(lastLevelSelected,'children',r)
+        this.$set(lastLevelSelected, "children", r)
         //lastLevelSelected[0].children = r
       })
     },
-    loadData({id},fn){
-      ajax2(id).then(r=>{
-        fn(r)   //把传递过来的回调函数调用一下
+    loadData({ id }, fn) {
+      ajax2(id).then(r => {
+        fn(r) //把传递过来的回调函数调用一下
       })
     }
   }

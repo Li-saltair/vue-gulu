@@ -7,6 +7,7 @@
         :height="popoverHeight"
         @update:selected="onUpdate"
         :selected="selected"
+        :loadData="loadData"
       ></recursive-item>
     </div>
   </div>
@@ -82,10 +83,12 @@ export default {
         let copy = JSON.parse(JSON.stringify(this.source));
         let toUpdate = complex(copy, lastItem.id);
         toUpdate.children = result;
-        this.$emit('update:selected',copy)
+        this.$emit("update:source", copy);
       };
-      this.loadData(lastItem, updateSource);
-      //调回调的时候传递一个函数，这个函数理论上应该被调用
+      if (!lastItem.isLeaf) {
+        this.loadData && this.loadData(lastItem, updateSource);
+        //调回调的时候传递一个函数，这个函数理论上应该被调用
+      }
     }
   }
 };
