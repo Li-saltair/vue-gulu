@@ -52,7 +52,6 @@ export default {
   },
   computed: {
     rightItems() {
-      console.log(this.selected)
       if (this.selected[this.level]) {
         let selectObj = this.sourceItem.filter(
           item => item.label === this.selected[this.level].label
@@ -92,6 +91,7 @@ export default {
     overflow-y: scroll;
   }
   .level-content {
+    white-space: nowrap;
     padding: 0.5em 1em;
     cursor: pointer;
     &:hover{

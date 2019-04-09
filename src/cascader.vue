@@ -1,7 +1,7 @@
 <template>
-  <div class="cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">{{selectValue || '&nbsp;'}}</div>
-    <div class="popover" v-if="popoverVisible">
+  <div class="cascader" ref="cascader">
+    <div class="trigger" @click="toggle">{{selectValue || '&nbsp;'}}</div>
+    <div class="popover" v-if="popoverVisible" ref="popover">
       <recursive-item
         :sourceItem="source"
         :height="popoverHeight"
@@ -14,6 +14,7 @@
 </template>
 <script>
 import recursiveItem from "./recursive-item";
+import { setTimeout } from "timers";
 export default {
   name: "gCascader",
   components: { recursiveItem },
@@ -89,6 +90,33 @@ export default {
         this.loadData && this.loadData(lastItem, updateSource);
         //调回调的时候传递一个函数，这个函数理论上应该被调用
       }
+    },
+    onClickDocument(e) {
+      let { cascader,popover } = this.$refs;
+      let target = e.target;
+      if ( cascader.contains(target) || popover.contains(target)) {
+        return;
+      } else {
+        this.close();
+      }
+    },
+    open() {
+      this.popoverVisible = true;
+      //添加监听事件
+      setTimeout(() => {
+        document.addEventListener("click", this.onClickDocument);
+      }, 0);
+    },
+    close() {
+      this.popoverVisible = false;
+      document.removeEventListener("click", this.onClickDocument);
+    },
+    toggle() {
+      if (this.popoverVisible) {
+        this.close();
+      } else {
+        this.open();
+      }
     }
   }
 };
@@ -97,6 +125,8 @@ export default {
 @import "var";
 .cascader {
   position: relative;
+  display: inline-flex;
+  border: 1px solid #f66;
   .trigger {
     display: inline-flex;
     padding: 0 2px;

@@ -54,32 +54,32 @@ export default {
     }
   },
   mounted() {
-    if(this.trigger === 'click'){
-      this.$refs.popover.addEventListener('click',this.onClick)
+    if (this.trigger === "click") {
+      this.$refs.popover.addEventListener("click", this.onClick);
     } else {
-      this.$refs.popover.addEventListener('mouseenter',()=>{
-        this.open()
-      })
-      this.$refs.popover.addEventListener('mouseleave',()=>{
-        this.close()
-      })
+      this.$refs.popover.addEventListener("mouseenter", () => {
+        this.open();
+      });
+      this.$refs.popover.addEventListener("mouseleave", () => {
+        this.close();
+      });
     }
   },
-  destroyed(){
-    if(this.trigger === 'click'){
-      this.$refs.popover.removeEventListener('click',this.onClick)
+  destroyed() {
+    if (this.trigger === "click") {
+      this.$refs.popover.removeEventListener("click", this.onClick);
     } else {
-      this.$refs.popover.removeEventListener('mouseenter',()=>{
-        this.open()
-      })
-      this.$refs.popover.removeEventListener('mouseleave',()=>{
-        this.close()
-      })
+      this.$refs.popover.removeEventListener("mouseenter", () => {
+        this.open();
+      });
+      this.$refs.popover.removeEventListener("mouseleave", () => {
+        this.close();
+      });
     }
   },
   methods: {
     positionContent() {
-      const { popoverWrapper, popoverButton } = this.$refs
+      const { popoverWrapper, popoverButton } = this.$refs;
       document.body.appendChild(popoverWrapper);
       const {
         width,
@@ -113,17 +113,13 @@ export default {
     },
     onClickDocument(e) {
       //当触发事件是弹出的部分，那么什么也不做
-      if (
-        this.$refs.popover &&
-        (this.$refs.popover === e.target ||
-          this.$refs.popover.contains(e.target))
-      ) {
+      let { popover, popoverWrapper } = this.$refs;
+      if (popover && (popover === e.target || popover.contains(e.target))) {
         return;
       }
       if (
-        this.$refs.popoverWrapper &&
-        (this.$refs.popoverWrapper === e.target ||
-          this.$refs.popoverWrapper.contains(e.target))
+        popoverWrapper &&
+        (popoverWrapper === e.target || popoverWrapper.contains(e.target))
       ) {
         return;
       }
@@ -187,7 +183,7 @@ $border-radius: 4px;
       top: 100%;
       content: "";
       border-top: 10px solid #ccc;
-      border-bottom:none;
+      border-bottom: none;
     }
     &::after {
       top: calc(100% - 1px);
@@ -202,7 +198,7 @@ $border-radius: 4px;
       bottom: 100%;
       content: "";
       border-bottom: 10px solid #ccc;
-      border-top:none;
+      border-top: none;
     }
     &::after {
       bottom: calc(100% - 1px);
@@ -217,7 +213,7 @@ $border-radius: 4px;
       left: 100%;
       top: 50%;
       transform: translateY(-50%);
-      border-right:none;
+      border-right: none;
     }
     &::before {
       border-left: 10px solid #ccc;
@@ -233,7 +229,7 @@ $border-radius: 4px;
     &::after {
       top: 50%;
       transform: translateY(-50%);
-      border-left:none
+      border-left: none;
     }
     &::before {
       right: 100%;
