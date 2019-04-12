@@ -1,4 +1,5 @@
 <template>
+import { clearTimeout } from 'timers';
   <div class="g-slides" style="width:200px;height:150px;">
     <div class="g-slides-window" ref="window">
       <div class="g-slides-wrapper">
@@ -39,16 +40,30 @@ export default {
       let first = this.$children[0];
       return this.selected || first.name;
     },
+    stopAutoPlay(timer){
+        clearTimeout(timer)
+    },
     playAutomatically() {
       let slideItems = this.$children.map(vm => vm.name);
       let index = slideItems.indexOf(this.getSelected());
-      setInterval(() => {
+      let run = () => {
+        console.log(index);
         if (index === slideItems.length) {
           index = 0;
         }
         this.$emit("update:selected", slideItems[index + 1]);
+        setTimeout(run, 3000);
         index++;
-      }, 2000);
+      };
+      //第一次延迟
+      setTimeout(()=>{run()},3000)
+      //   setInterval(() => {
+      //     if (index === slideItems.length) {
+      //       index = 0;
+      //     }
+      //     this.$emit("update:selected", slideItems[index + 1]);
+      //     index++;
+      //   }, 2000);
     }
   }
 };
@@ -57,7 +72,6 @@ export default {
 .g-slides {
   display: inline-block;
   &-window {
-    
   }
   &-wrapper {
     position: relative;

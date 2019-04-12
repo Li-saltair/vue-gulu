@@ -89,9 +89,9 @@ new Vue({
     selected:'1'
   },
   mounted() {
-    ajax2(0).then(r => {
-      this.source = r
-    })
+    // ajax2(0).then(r => {
+    //   this.source = r
+    // })
     // setTimeout(() => {
     //     this.selected = '2'
     // },2000);
