@@ -1,5 +1,4 @@
 <template>
-import { clearTimeout } from 'timers';
   <div class="g-slides" style="width:200px;height:150px;">
     <div class="g-slides-window" ref="window">
       <div class="g-slides-wrapper">
