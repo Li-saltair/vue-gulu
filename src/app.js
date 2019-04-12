@@ -20,6 +20,8 @@ import Popover from "./popover"
 import Collapse from "./collapse"
 import CollapseItem from "./collapse-item"
 import Cascader from "./cascader"
+import Slides from "./slides"
+import SlidesItem from "./slides-item"
 import db from "./_db"
 
 Vue.component("g-button", Button)
@@ -43,27 +45,38 @@ Vue.component("g-popover", Popover)
 Vue.component("g-collapse", Collapse)
 Vue.component("g-collapse-item", CollapseItem)
 Vue.component("g-cascader", Cascader)
+Vue.component("g-slides", Slides)
+Vue.component("g-slides-item", SlidesItem)
 
 function ajax(pid = 0) {
   //pid是上一级的ID
-  return db.filter(item => item.pid == pid)
-}
-function ajax2(pid = 0) {
-  return new Promise((resolve, reject) => {
+
+  setTimeout(() => {
     let result = db.filter(item => item.pid == pid)
-    //判断是否叶子节点
     result.forEach(node => {
-      if (
-        db.filter(item => 
-          item.pid === node.id
-        ).length > 0
-      ) {
+      if (db.filter(item => item.pid === node.id).length > 0) {
         node.isLeaf = false
       } else {
         node.isLeaf = true
       }
     })
-    resolve(result)
+    return result
+  }, 1000)
+}
+function ajax2(pid = 0) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let result = db.filter(item => item.pid == pid)
+      //判断是否叶子节点
+      result.forEach(node => {
+        if (db.filter(item => item.pid === node.id).length > 0) {
+          node.isLeaf = false
+        } else {
+          node.isLeaf = true
+        }
+      })
+      resolve(result)
+    }, 1000)
   })
 }
 
@@ -71,15 +84,18 @@ new Vue({
   el: "#root",
   data: {
     selectedTab: ["1", "2"],
-    selected: [],
-    source: []
+    //selected: [],
+    source: [],
+    selected:'1'
   },
   mounted() {
     ajax2(0).then(r => {
       this.source = r
     })
+    // setTimeout(() => {
+    //     this.selected = '2'
+    // },2000);
   },
-  updated() {},
   methods: {
     changeData() {
       //console.log(this.selected[0].label)

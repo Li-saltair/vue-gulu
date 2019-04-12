@@ -1,20 +1,22 @@
 <template>
-  <div class="cascader" ref="cascader">
+  <div class="cascader" ref="cascader" v-click-outside="close">
     <div class="trigger" @click="toggle">{{selectValue || '&nbsp;'}}</div>
     <div class="popover" v-if="popoverVisible" ref="popover">
       <recursive-item
-        :sourceItem="source"
+        :source-item="source"
         :height="popoverHeight"
         @update:selected="onUpdate"
         :selected="selected"
-        :loadData="loadData"
+        :loading-item="loadingItem"
+        :load-data="loadData"
       ></recursive-item>
     </div>
   </div>
 </template>
 <script>
 import recursiveItem from "./recursive-item";
-import { setTimeout } from "timers";
+import clickOutside from "./click-outside";
+
 export default {
   name: "gCascader",
   components: { recursiveItem },
@@ -36,9 +38,11 @@ export default {
   },
   data() {
     return {
-      popoverVisible: false
+      popoverVisible: false,
+      loadingItem: {}
     };
   },
+  directives: { clickOutside },
   computed: {
     selectValue() {
       return this.selected.map(item => item.label).join(" ");
@@ -81,35 +85,37 @@ export default {
         }
       };
       let updateSource = result => {
+        this.loadingItem = {}
         let copy = JSON.parse(JSON.stringify(this.source));
         let toUpdate = complex(copy, lastItem.id);
         toUpdate.children = result;
         this.$emit("update:source", copy);
       };
-      if (!lastItem.isLeaf) {
+      if (!lastItem.isLeaf && this.loadData) {
         this.loadData && this.loadData(lastItem, updateSource);
+        this.loadingItem = lastItem;
         //调回调的时候传递一个函数，这个函数理论上应该被调用
       }
     },
-    onClickDocument(e) {
-      let { cascader,popover } = this.$refs;
-      let target = e.target;
-      if ( cascader.contains(target) || popover.contains(target)) {
-        return;
-      } else {
-        this.close();
-      }
-    },
+    // onClickDocument(e) {
+    //   let { cascader,popover } = this.$refs;
+    //   let target = e.target;
+    //   if ( cascader.contains(target) || popover.contains(target)) {
+    //     return;
+    //   } else {
+    //     this.close();
+    //   }
+    // },
     open() {
       this.popoverVisible = true;
       //添加监听事件
-      setTimeout(() => {
-        document.addEventListener("click", this.onClickDocument);
-      }, 0);
+      // setTimeout(() => {
+      //   document.addEventListener("click", this.onClickDocument);
+      // }, 0);
     },
     close() {
       this.popoverVisible = false;
-      document.removeEventListener("click", this.onClickDocument);
+      //document.removeEventListener("click", this.onClickDocument);
     },
     toggle() {
       if (this.popoverVisible) {
@@ -139,6 +145,7 @@ export default {
   }
   .popover {
     position: absolute;
+    z-index: 90;
     min-height: 150px;
     background: #fff;
     z-index: 99;

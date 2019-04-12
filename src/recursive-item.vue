@@ -8,18 +8,28 @@
         @click="onClickLabel(leftItem)"
       >
         {{leftItem.label}}
-        <span class="turn-right" v-if="loadData ? !leftItem.isLeaf :leftItem.children">
-          <Icon name="right"></Icon>
+        <span
+          class="turn-right"
+          v-if="loadData ? !leftItem.isLeaf :leftItem.children"
+        >
+          <template v-if="leftItem.label === loadingItem.label">
+            <Icon name="loading" class="loading"></Icon>
+          </template>
+          <template v-else>
+            <Icon name="right"></Icon>
+          </template>
         </span>
       </div>
     </div>
     <div class="right" v-if="rightItems" ref="right">
       <recursive-item
-        :sourceItem="rightItems"
+        :source-item="rightItems"
         :height="height"
         :level="level+1"
+        :loading-item="loadingItem"
         :selected="selected"
         @update:selected="onChildrenUpdate"
+        :load-data="loadData"
       ></recursive-item>
     </div>
   </div>
@@ -35,6 +45,13 @@ export default {
     sourceItem: {
       type: Array
     },
+    loadingItem: {
+      type: Object,
+      default: () => ({})
+    },
+    loadData:{
+      type:Function
+    },
     height: {
       type: String
     },
@@ -46,8 +63,8 @@ export default {
       type: Number,
       default: 0
     },
-    loadData:{
-      type:Function
+    loadData: {
+      type: Function
     }
   },
   computed: {
@@ -83,6 +100,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .recursive-item {
   display: flex;
   .left {
@@ -94,8 +119,8 @@ export default {
     white-space: nowrap;
     padding: 0.5em 1em;
     cursor: pointer;
-    &:hover{
-      background:#f1fff1;
+    &:hover {
+      background: #f1fff1;
     }
     .turn-right {
       margin-left: 1em;
@@ -103,7 +128,10 @@ export default {
         width: 0.8em;
         height: 0.8em;
         fill: #999;
-        margin-left:auto;
+        margin-left: auto;
+        &.loading {
+          animation: spin 1s linear infinite;
+        }
       }
     }
   }

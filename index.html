@@ -25,9 +25,15 @@
         padding-top: 100px;
         border: 1px solid #7c7;
       }
-      .collapse{
-        width:500px;
-        margin:auto;
+      .collapse {
+        width: 500px;
+        margin: auto;
+      }
+      .slide-item{
+        width: 200px;
+        height: 150px;
+        background: #aaa;
+        border:1px solid #fc0;
       }
     </style>
   </head>
@@ -69,7 +75,7 @@
       </g-popover>
       <g-popover position="top">
         <!-- 2.6.0以上的版本的新写法，建议使用新写法 -->
-        <!--<template v-slot:content="{close}">
+      <!--<template v-slot:content="{close}">
           <div>
             递交国会代表所代表的是<br />从数据汇聚活动举办v从数据汇聚活动举办v从
             <br>
@@ -105,7 +111,19 @@
       </g-collapse>
       {{selectedTab}}
     </div> -->
-    <g-cascader :source.sync="source" popover-height="300px" :selected.sync="selected" @update:selected="changeData" :load-data="loadData"></g-cascader>  
+      <!-- 级联选择 -->
+      <!-- <g-cascader :source.sync="source" popover-height="300px" :selected.sync="selected" @update:selected="changeData" :load-data="loadData"></g-cascader>   -->
+      <g-slides :selected.sync="selected">
+        <g-slides-item name="1">
+          <div class="slide-item">1</div>
+        </g-slides-item>
+        <g-slides-item name="2">
+          <div class="slide-item">2</div>
+        </g-slides-item>
+        <g-slides-item name="3">
+          <div class="slide-item">3</div>
+        </g-slides-item>
+      </g-slides>
     </div>
 
     <script src="./src/app.js"></script>
