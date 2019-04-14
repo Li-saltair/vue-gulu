@@ -28,7 +28,6 @@ export default {
     }
   },
   mounted() {
-    console.log("方向："+ this.reverse ? "正着": "倒着")
   }
 };
 </script>
@@ -42,7 +41,7 @@ export default {
 }
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 2s;
+  transition: all 300ms;
 }
 .slide-enter.reverse {
   transform: translateX(-100%);

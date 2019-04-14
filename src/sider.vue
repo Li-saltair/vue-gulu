@@ -18,7 +18,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .sider {
   position: relative;
   > button {
@@ -31,8 +31,8 @@ export default {
 .slide-leave-active {
   transition: all 0.5s;
 }
-/*.slide-enter, .slide-leave-to {
+.slide-enter, .slide-leave-to {
   margin-left: -200px;
-}*/
+}
 </style>
 
