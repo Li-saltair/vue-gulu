@@ -31,8 +31,8 @@ export default {
 .slide-leave-active {
   transition: all 0.5s;
 }
-.slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+/*.slide-enter, .slide-leave-to {
   margin-left: -200px;
-}
+}*/
 </style>
 

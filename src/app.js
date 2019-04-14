@@ -86,7 +86,8 @@ new Vue({
     selectedTab: ["1", "2"],
     //selected: [],
     source: [],
-    selected:'1'
+    selected:'2',
+    auto:true
   },
   mounted() {
     // ajax2(0).then(r => {
@@ -97,21 +98,21 @@ new Vue({
     // },2000);
   },
   methods: {
-    changeData() {
-      //console.log(this.selected[0].label)
-      ajax2(this.selected[0].id).then(r => {
-        let lastLevelSelected = this.source.filter(
-          item => item.id == this.selected[0].id
-        )[0]
-        //console.log(lastLevelSelected)
-        this.$set(lastLevelSelected, "children", r)
-        //lastLevelSelected[0].children = r
-      })
-    },
-    loadData({ id }, fn) {
-      ajax2(id).then(r => {
-        fn(r) //把传递过来的回调函数调用一下
-      })
-    }
+    // changeData() {
+    //   //console.log(this.selected[0].label)
+    //   ajax2(this.selected[0].id).then(r => {
+    //     let lastLevelSelected = this.source.filter(
+    //       item => item.id == this.selected[0].id
+    //     )[0]
+    //     //console.log(lastLevelSelected)
+    //     this.$set(lastLevelSelected, "children", r)
+    //     //lastLevelSelected[0].children = r
+    //   })
+    // },
+    // loadData({ id }, fn) {
+    //   ajax2(id).then(r => {
+    //     fn(r) //把传递过来的回调函数调用一下
+    //   })
+    // }
   }
 })
