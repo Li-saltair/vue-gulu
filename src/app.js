@@ -48,37 +48,37 @@ Vue.component("g-cascader", Cascader)
 Vue.component("g-slides", Slides)
 Vue.component("g-slides-item", SlidesItem)
 
-function ajax(pid = 0) {
-  //pid是上一级的ID
+// function ajax(pid = 0) {
+//   //pid是上一级的ID
 
-  setTimeout(() => {
-    let result = db.filter(item => item.pid == pid)
-    result.forEach(node => {
-      if (db.filter(item => item.pid === node.id).length > 0) {
-        node.isLeaf = false
-      } else {
-        node.isLeaf = true
-      }
-    })
-    return result
-  }, 1000)
-}
-function ajax2(pid = 0) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let result = db.filter(item => item.pid == pid)
-      //判断是否叶子节点
-      result.forEach(node => {
-        if (db.filter(item => item.pid === node.id).length > 0) {
-          node.isLeaf = false
-        } else {
-          node.isLeaf = true
-        }
-      })
-      resolve(result)
-    }, 1000)
-  })
-}
+//   setTimeout(() => {
+//     let result = db.filter(item => item.pid == pid)
+//     result.forEach(node => {
+//       if (db.filter(item => item.pid === node.id).length > 0) {
+//         node.isLeaf = false
+//       } else {
+//         node.isLeaf = true
+//       }
+//     })
+//     return result
+//   }, 1000)
+// }
+// function ajax2(pid = 0) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       let result = db.filter(item => item.pid == pid)
+//       //判断是否叶子节点
+//       result.forEach(node => {
+//         if (db.filter(item => item.pid === node.id).length > 0) {
+//           node.isLeaf = false
+//         } else {
+//           node.isLeaf = true
+//         }
+//       })
+//       resolve(result)
+//     }, 1000)
+//   })
+// }
 
 new Vue({
   el: "#root",

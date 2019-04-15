@@ -4,7 +4,6 @@
     @mouseenter="onMouseEnter"
     @mouseleave="onMouseLeave"
     @touchstart="onTouchStart"
-    @touchmove="onTouchMove"
     @touchend="onTouchEnd"
   >
     <div class="g-slides-window" ref="window">
@@ -13,16 +12,25 @@
       </div>
     </div>
     <div class="g-slides-pages">
+      <span @click="prevStep">
+        <gIcon name="left" class="icon"></gIcon>
+      </span>
+      
       <span
         v-for="n in childrenLength"
         :key="n"
         :class="{active:selectedPage === n-1}"
         @click="selectPage(n-1)"
-      ></span>
+      >{{n}}</span>
+      <span @click="nextStep">
+        <gIcon  name="right" class="icon"></gIcon>
+      </span>
+      
     </div>
   </div>
 </template>
 <script>
+import gIcon from "./icon";
 export default {
   name: "Gslides",
   props: {
@@ -33,6 +41,9 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  components: {
+    gIcon
   },
   data() {
     return {
@@ -48,19 +59,30 @@ export default {
     //选中的页码数对应的内容
     selectedPage() {
       let slideItems = this.$children.map(vm => vm.name);
-      let index = slideItems.indexOf(this.selected)
-      return index === -1 ? 0: index
+      let index = slideItems.indexOf(this.selected);
+      return index === -1 ? 0 : index;
+    },
+    effectiveItem() {
+      return this.$children.filter(vm => vm.$options.name === "GslidesItem");
     }
   },
   mounted() {
     this.updateChildren();
     //this.playAutomatically();
-    this.childrenLength = this.$children.length;
+    this.childrenLength = this.effectiveItem.length;
   },
   updated() {
     this.updateChildren();
   },
   methods: {
+    prevStep() {
+      console.log(this.selectedPage);
+      this.selectPage(this.selectedPage - 1);
+    },
+    nextStep() {
+      console.log(this.selectedPage);
+      this.selectPage(this.selectedPage + 1);
+    },
     updateChildren() {
       let slideItems = this.$children.map(vm => vm.name);
       let currentSelected = this.getSelected(); //当前选中的项
@@ -68,7 +90,7 @@ export default {
         let reverse = this.selectedPage > this.lastIndex ? false : true;
         //正向由最后一个到第一个
         if (
-          this.lastIndex === slideItems.length - 1 &&
+          this.lastIndex === this.effectiveItem.length - 1 &&
           this.selectedPage === 0
         ) {
           reverse = false;
@@ -76,16 +98,16 @@ export default {
         //反向由第一个到最后一个
         if (
           this.lastIndex === 0 &&
-          this.selectedPage === slideItems.length - 1
+          this.selectedPage === this.effectiveItem.length - 1
         ) {
           reverse = true;
         }
         vm.reverse = reverse;
         //this.$nextTick(() => {
-          setTimeout(()=>{
-            vm.selected = currentSelected;
-          },0)
-          
+        setTimeout(() => {
+          vm.selected = currentSelected;
+        }, 0);
+
         //});
       });
     },
@@ -99,7 +121,6 @@ export default {
       this.pausePlay();
       this.touchStart = e.touches[0]; //第一个手指的位置
     },
-    onTouchMove(e) {},
     onTouchEnd(e) {
       this.touchEnd = e.changedTouches[0];
       let { clientX: x1, clientY: y1 } = this.touchStart;
@@ -128,9 +149,9 @@ export default {
       this.lastIndex = this.selectedPage;
       let slideItems = this.$children.map(vm => vm.name);
       if (index === -1) {
-        index = slideItems.length - 1;
+        index = this.effectiveItem.length - 1;
       }
-      if (index === slideItems.length) {
+      if (index === this.effectiveItem.length) {
         index = 0;
       }
       this.$emit("update:selected", slideItems[index]);
@@ -148,7 +169,7 @@ export default {
       }
       let run = () => {
         let slideItems = this.$children.map(vm => vm.name);
-        let index = slideItems.indexOf(this.getSelected());
+        let index = this.effectiveItem.indexOf(this.getSelected());
         let newIndex = index + 1;
         this.selectPage(newIndex);
         this.timerId = setTimeout(run, 3000);
@@ -180,8 +201,8 @@ export default {
     align-items: center;
     > span {
       cursor: pointer;
-      width: 0.8em;
-      height: 0.8em;
+      width: 1em;
+      height: 1em;
       margin: 0 0.3em;
       border-radius: 50%;
       background: #7c7;
