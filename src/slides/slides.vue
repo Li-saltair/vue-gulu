@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import gIcon from "./icon";
+import gIcon from "./../icon";
 export default {
   name: "Gslides",
   props: {

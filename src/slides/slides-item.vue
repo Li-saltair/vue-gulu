@@ -19,7 +19,7 @@ export default {
       //由父组件控制
       selected: undefined,
       //是否倒着轮播
-      reverse:false
+      reverse: false
     };
   },
   computed: {
@@ -27,15 +27,14 @@ export default {
       return this.selected === this.name ? true : false;
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>
 .slide-leave-active {
   position: absolute;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
 }
@@ -56,6 +55,4 @@ export default {
 .slide-leave-to {
   transform: translateX(-100%);
 }
-
-
 </style>

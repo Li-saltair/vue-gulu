@@ -85,7 +85,7 @@ export default {
         }
       };
       let updateSource = result => {
-        this.loadingItem = {}
+        this.loadingItem = {};
         let copy = JSON.parse(JSON.stringify(this.source));
         let toUpdate = complex(copy, lastItem.id);
         toUpdate.children = result;
@@ -128,7 +128,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "var";
+@import "../var";
 .cascader {
   position: relative;
   display: inline-flex;

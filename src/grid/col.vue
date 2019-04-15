@@ -50,7 +50,7 @@ export default {
     },
     colClasses() {
       let { span, offset, ipad, phone, narrowPc, pc } = this;
-      let createClasses = this.createClasses
+      let createClasses = this.createClasses;
       return [
         ...createClasses({ span, offset }),
         ...createClasses(ipad, "ipad-"),
