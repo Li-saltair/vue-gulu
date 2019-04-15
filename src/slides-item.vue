@@ -41,7 +41,7 @@ export default {
 }
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 300ms;
+  transition: all 800ms;
 }
 .slide-enter.reverse {
   transform: translateX(-100%);
