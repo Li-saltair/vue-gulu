@@ -22,7 +22,7 @@ import CollapseItem from "./collapse-item"
 import Cascader from "./cascader"
 import Slides from "./slides"
 import SlidesItem from "./slides-item"
-import db from "./_db"
+import db from "../test/fixtures.js/_db"
 
 Vue.component("g-button", Button)
 Vue.component("g-icon", Icon)
@@ -87,7 +87,6 @@ new Vue({
     //selected: [],
     source: [],
     selected:'2',
-    auto:true
   },
   mounted() {
     // ajax2(0).then(r => {

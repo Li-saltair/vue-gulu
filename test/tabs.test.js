@@ -20,7 +20,6 @@ describe("Tab", () => {
     expect(Tabs).to.be.ok;
   });
   it("接受 selected", done => {
-    //const Constructor = Vue.extend(Toast);
     const div = document.createElement("div");
     document.body.appendChild(div);
     div.innerHTML = `
@@ -44,6 +43,8 @@ describe("Tab", () => {
       let result = vm.$el.querySelector('.tabs-item')
       expect(result.classList.contains('active')).to.be.true
       done();
+      vm.$el.remove();
+      vm.$destroy();
     });
   });
 });

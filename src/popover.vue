@@ -65,7 +65,7 @@ export default {
       });
     }
   },
-  destroyed() {
+  beforeDestroy() {
     if (this.trigger === "click") {
       this.$refs.popover.removeEventListener("click", this.onClick);
     } else {

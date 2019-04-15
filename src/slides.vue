@@ -14,13 +14,13 @@
     <div class="g-slides-pages">
       <span @click="prevStep">
         <gIcon name="left" class="icon"></gIcon>
-      </span>
-      
+      </span>      
       <span
         v-for="n in childrenLength"
         :key="n"
         :class="{active:selectedPage === n-1}"
         @click="selectPage(n-1)"
+        :data-index="n-1"
       >{{n}}</span>
       <span @click="nextStep">
         <gIcon  name="right" class="icon"></gIcon>
@@ -40,6 +40,10 @@ export default {
     autoPlay: {
       type: Boolean,
       default: false
+    },
+    autoPlayDaley:{
+      type:Number,
+      default:3000
     }
   },
   components: {
@@ -58,9 +62,11 @@ export default {
   computed: {
     //选中的页码数对应的内容
     selectedPage() {
-      let slideItems = this.$children.map(vm => vm.name);
-      let index = slideItems.indexOf(this.selected);
+      let index = this.names.indexOf(this.selected);
       return index === -1 ? 0 : index;
+    },
+    names(){
+      return this.effectiveItem.map(vm => vm.name);
     },
     effectiveItem() {
       return this.$children.filter(vm => vm.$options.name === "GslidesItem");
@@ -68,7 +74,9 @@ export default {
   },
   mounted() {
     this.updateChildren();
-    //this.playAutomatically();
+    if(this.autoPlay){
+      this.playAutomatically();
+    }
     this.childrenLength = this.effectiveItem.length;
   },
   updated() {
@@ -76,17 +84,14 @@ export default {
   },
   methods: {
     prevStep() {
-      console.log(this.selectedPage);
       this.selectPage(this.selectedPage - 1);
     },
     nextStep() {
-      console.log(this.selectedPage);
       this.selectPage(this.selectedPage + 1);
     },
     updateChildren() {
-      let slideItems = this.$children.map(vm => vm.name);
       let currentSelected = this.getSelected(); //当前选中的项
-      this.$children.forEach(vm => {
+      this.effectiveItem.forEach(vm => {
         let reverse = this.selectedPage > this.lastIndex ? false : true;
         //正向由最后一个到第一个
         if (
@@ -147,17 +152,16 @@ export default {
     },
     selectPage(index) {
       this.lastIndex = this.selectedPage;
-      let slideItems = this.$children.map(vm => vm.name);
       if (index === -1) {
-        index = this.effectiveItem.length - 1;
+        index = this.names.length - 1;
       }
-      if (index === this.effectiveItem.length) {
+      if (index === this.names.length) {
         index = 0;
       }
-      this.$emit("update:selected", slideItems[index]);
+      this.$emit("update:selected", this.names[index]);
     },
     getSelected() {
-      let first = this.$children[0];
+      let first = this.effectiveItem[0];
       return this.selected || first.name;
     },
     stopAutoPlay(timer) {
@@ -168,16 +172,13 @@ export default {
         return;
       }
       let run = () => {
-        let slideItems = this.$children.map(vm => vm.name);
         let index = this.effectiveItem.indexOf(this.getSelected());
         let newIndex = index + 1;
         this.selectPage(newIndex);
-        this.timerId = setTimeout(run, 3000);
+        this.timerId = setTimeout(run, this.autoPlayDaley);
       };
       //第一次延迟
-      this.timerId = setTimeout(() => {
-        run();
-      }, 3000);
+      this.timerId = setTimeout(run, this.autoPlayDaley);
     },
     pausePlay() {
       window.clearTimeout(this.timerId);
