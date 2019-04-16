@@ -22,6 +22,9 @@ import CollapseItem from "./collapse/collapse-item"
 import Cascader from "./cascader/cascader"
 import Slides from "./slides/slides"
 import SlidesItem from "./slides/slides-item"
+import Nav from "./nav/nav"
+import SubNav from "./nav/sub-nav"
+import NavItem from "./nav/nav-item"
 import db from "../test/fixtures/_db"
 
 Vue.component("g-button", Button)
@@ -47,6 +50,9 @@ Vue.component("g-collapse-item", CollapseItem)
 Vue.component("g-cascader", Cascader)
 Vue.component("g-slides", Slides)
 Vue.component("g-slides-item", SlidesItem)
+Vue.component("g-nav", Nav)
+Vue.component("g-nav-item", NavItem)
+Vue.component("g-sub-nav", SubNav)
 
 // function ajax(pid = 0) {
 //   //pid是上一级的ID
@@ -87,6 +93,7 @@ new Vue({
     //selected: [],
     source: [],
     selected:'2',
+    menu:['one']
   },
   mounted() {
     // ajax2(0).then(r => {

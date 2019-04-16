@@ -27,17 +27,17 @@
         width: 500px;
         margin: auto;
       }
-      .wrapper{
-        margin:40px;
+      .wrapper {
+        margin: 40px;
       }
-      .slide-item{
+      .slide-item {
         width: 100%;
         height: 150px;
         background: #aaa;
         font-size: 30px;
         display: flex;
         justify-content: center;
-        align-items: center
+        align-items: center;
       }
     </style>
   </head>
@@ -117,7 +117,8 @@
     </div> -->
       <!-- 级联选择 -->
       <!-- <g-cascader :source.sync="source" popover-height="300px" :selected.sync="selected" @update:selected="changeData" :load-data="loadData"></g-cascader>   -->
-      <g-slides :selected.sync="selected" class="wrapper">
+      <!-- 轮播图 -->
+      <!-- <g-slides :selected.sync="selected" class="wrapper">
         <g-slides-item name="1">
           <div class="slide-item">1</div>
         </g-slides-item>
@@ -127,7 +128,26 @@
         <g-slides-item name="3">
           <div class="slide-item">3</div>
         </g-slides-item>
-      </g-slides>
+      </g-slides> -->
+      <g-nav :selected.sync="menu">
+        <g-sub-nav>
+          <template v-slot:title>关于</template>
+          <g-nav-item name="one">第一个</g-nav-item>
+          <g-sub-nav>
+            <template v-slot:title>第二关于</template>
+            <g-nav-item name="two">sjhgdshj</g-nav-item>
+            <g-nav-item name="three">siufgdvd</g-nav-item>
+            <g-sub-nav>
+                <template v-slot:title>第二关于</template>
+                <g-nav-item name="four">sjhgdshj</g-nav-item>
+                <g-nav-item name="five">siufgdvd</g-nav-item>
+                <g-nav-item name="six">siufgdvd</g-nav-item>
+              </g-sub-nav>
+          </g-sub-nav>
+        </g-sub-nav>
+        <g-nav-item name="home1">首页1</g-nav-item>
+        <g-nav-item name="home2">首页2</g-nav-item>
+      </g-nav>
     </div>
 
     <script src="./src/app.js"></script>
