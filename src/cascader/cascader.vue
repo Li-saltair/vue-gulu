@@ -97,25 +97,11 @@ export default {
         //调回调的时候传递一个函数，这个函数理论上应该被调用
       }
     },
-    // onClickDocument(e) {
-    //   let { cascader,popover } = this.$refs;
-    //   let target = e.target;
-    //   if ( cascader.contains(target) || popover.contains(target)) {
-    //     return;
-    //   } else {
-    //     this.close();
-    //   }
-    // },
     open() {
       this.popoverVisible = true;
-      //添加监听事件
-      // setTimeout(() => {
-      //   document.addEventListener("click", this.onClickDocument);
-      // }, 0);
     },
     close() {
       this.popoverVisible = false;
-      //document.removeEventListener("click", this.onClickDocument);
     },
     toggle() {
       if (this.popoverVisible) {

@@ -21,7 +21,7 @@
         overflow: hidden;
       }
       #root {
-        border: 1px solid #7c7;
+        
       }
       .collapse {
         width: 500px;
@@ -130,23 +130,23 @@
         </g-slides-item>
       </g-slides> -->
       <g-nav :selected.sync="menu">
-        <g-sub-nav>
-          <template v-slot:title>关于</template>
-          <g-nav-item name="one">第一个</g-nav-item>
-          <g-sub-nav>
-            <template v-slot:title>第二关于</template>
-            <g-nav-item name="two">sjhgdshj</g-nav-item>
-            <g-nav-item name="three">siufgdvd</g-nav-item>
-            <g-sub-nav>
-                <template v-slot:title>第二关于</template>
-                <g-nav-item name="four">sjhgdshj</g-nav-item>
-                <g-nav-item name="five">siufgdvd</g-nav-item>
-                <g-nav-item name="six">siufgdvd</g-nav-item>
+        <g-sub-nav name="one">
+          <template v-slot:title>一</template>
+          <g-nav-item name="two">二</g-nav-item>
+          <g-sub-nav name="three">
+            <template v-slot:title>三</template>
+            <g-nav-item name="four">四</g-nav-item>
+            <g-nav-item name="five">五</g-nav-item>
+            <g-sub-nav name="six">
+                <template v-slot:title>六</template>
+                <g-nav-item name="seven">七</g-nav-item>
+                <g-nav-item name="eight">八</g-nav-item>
+                <g-nav-item name="nine">九</g-nav-item>
               </g-sub-nav>
           </g-sub-nav>
         </g-sub-nav>
-        <g-nav-item name="home1">首页1</g-nav-item>
-        <g-nav-item name="home2">首页2</g-nav-item>
+        <g-nav-item name="ten">十</g-nav-item>
+        <g-nav-item name="eleven">十一</g-nav-item>
       </g-nav>
     </div>
 

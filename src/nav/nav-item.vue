@@ -17,12 +17,16 @@ export default {
       selected: false
     };
   },
-  inject:['root'],
-  mounted(){
-      this.root.addItem(this)
+  inject: ["root"],
+  mounted() {
+    this.root.addItem(this);
   },
   methods: {
     onClick() {
+      this.root.namePath = [];
+      if (this.$parent.updateNamePath) {
+        this.$parent.updateNamePath();
+      }
       this.$emit("add:selected", this.name);
     }
   }
@@ -32,22 +36,22 @@ export default {
 .g-nav-item {
   padding: 10px 20px;
   &.selected {
-      position:relative;
-    &::after{
-        content:'';
-        position: absolute;
-        bottom:1px;
-        left:0;
-        border-bottom:2px solid #000;
-        width:100%;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 1px;
+      left: 0;
+      border-bottom: 2px solid #722ed1;
+      width: 100%;
     }
   }
 }
-.g-sub-nav .g-nav-item.selected{
-    background:#7e7;
-    color:#666;
-    &::after{
-        display:none
-    }
+.g-sub-nav .g-nav-item.selected {
+  background: #f9f0ff;
+  color: #666;
+  &::after {
+    display: none;
+  }
 }
 </style>

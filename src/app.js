@@ -93,7 +93,7 @@ new Vue({
     //selected: [],
     source: [],
     selected:'2',
-    menu:['one']
+    menu:['two']
   },
   mounted() {
     // ajax2(0).then(r => {

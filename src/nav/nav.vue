@@ -1,5 +1,6 @@
 <template>
   <div class="g-nav">
+      {{namePath}}
     <slot></slot>
   </div>
 </template>
@@ -18,7 +19,8 @@ export default {
   },
   data(){
       return {
-          items:[]
+          items:[],
+          namePath:[]
       }
   },
   provide() {
