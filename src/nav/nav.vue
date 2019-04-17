@@ -1,6 +1,5 @@
 <template>
-  <div class="g-nav">
-      {{namePath}}
+  <div class="g-nav" :class="{vertical:direction === 'vertical'}">
     <slot></slot>
   </div>
 </template>
@@ -15,6 +14,13 @@ export default {
     multiple: {
       type: Boolean,
       default: false
+    },
+    direction:{
+        type:String,
+        default:'horizontal',
+        validator(value){
+            return ['horizontal','vertical'].includes(value)
+        }
     }
   },
   data(){
@@ -25,7 +31,8 @@ export default {
   },
   provide() {
     return {
-      root: this
+      root: this,
+      vertical:this.direction === 'vertical'
     };
   },
   mounted() {
@@ -77,5 +84,10 @@ export default {
   display: flex;
   white-space: nowrap;
   border-bottom:1px solid #aaa;
+  user-select: none;
+  &.vertical{
+      flex-direction: column;
+      border:1px solid #7c7;
+  }
 }
 </style>

@@ -17,7 +17,7 @@ export default {
       selected: false
     };
   },
-  inject: ["root"],
+  inject: ["root","vertical"],
   mounted() {
     this.root.addItem(this);
   },
@@ -35,6 +35,7 @@ export default {
 <style lang="scss" scoped>
 .g-nav-item {
   padding: 10px 20px;
+  cursor: pointer;
   &.selected {
     position: relative;
     &::after {
