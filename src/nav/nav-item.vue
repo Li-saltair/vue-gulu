@@ -17,7 +17,7 @@ export default {
       selected: false
     };
   },
-  inject: ["root","vertical"],
+  inject: ["root", "vertical"],
   mounted() {
     this.root.addItem(this);
   },
@@ -27,7 +27,7 @@ export default {
       if (this.$parent.updateNamePath) {
         this.$parent.updateNamePath();
       }
-      this.$emit("add:selected", this.name);
+      this.$emit("add:selected", this.name)
     }
   }
 };
