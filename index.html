@@ -182,7 +182,7 @@
           <g-nav-item name="eleven">十一</g-nav-item>
         </g-nav>
       </div> -->
-      <g-pager :total-page="10" :current-page="10"></g-pager>
+      <g-pager :total-page="1" :current-page.sync="currentData" :hide-if-one-page="false"></g-pager>
     </div>
 
     <script src="./src/app.js"></script>

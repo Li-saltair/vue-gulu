@@ -96,7 +96,7 @@ new Vue({
     source: [],
     selected:'2',
     menu:['two'],
-    totalPage:10
+    currentData:1
   },
   mounted() {
     // ajax2(0).then(r => {

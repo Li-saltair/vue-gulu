@@ -1,6 +1,10 @@
 <template>
-  <div class="g-pager">
-    <span class="g-pager-item prev" :class="{disabled:currentPage === 1}">
+  <div class="g-pager" :class="{hide:hideIfOnePage === true && totalPage <=1}">
+    <span
+      class="g-pager-item prev"
+      :class="{disabled:currentPage === 1}"
+      @click="onClickPage(currentPage-1)"
+    >
       <Icon name="left"></Icon>
     </span>
     <span
@@ -8,8 +12,13 @@
       :key="n"
       class="g-pager-item"
       :class="{active:n === currentPage,separator:n === '...'}"
+      @click="onClickPage(n)"
     >{{n}}</span>
-    <span class="g-pager-item next" :class="{disabled:currentPage === totalPage}">
+    <span
+      class="g-pager-item next"
+      :class="{disabled:currentPage === totalPage}"
+      @click="onClickPage(currentPage+1)"
+    >
       <Icon name="right"></Icon>
     </span>
   </div>
@@ -30,38 +39,45 @@ export default {
       type: Number,
       required: true
     },
-    hideOnePage: {
+    hideIfOnePage: {
       type: Boolean,
       default: true
     }
   },
-  data() {
-    let pages = [
-      ...new Set(
-        [
-          1,
-          this.totalPage,
-          this.currentPage,
-          this.currentPage - 1,
-          this.currentPage - 2,
-          this.currentPage + 1,
-          this.currentPage + 2
-        ]
-          .filter(item => item >= 1 && item <= this.totalPage)
-          .sort((a, b) => {
-            return a - b;
-          })
-      )
-    ].reduce((prev, current, index, array) => {
-      prev.push(current);
-      array[index + 1] !== undefined &&
-        array[index + 1] - array[index] > 1 &&
-        prev.push("...");
-      return prev;
-    }, []);
-    return {
-      pages
-    };
+  computed: {
+    pages() {
+      let pages = [
+        ...new Set(
+          [
+            1,
+            this.totalPage,
+            this.currentPage,
+            this.currentPage - 1,
+            this.currentPage - 2,
+            this.currentPage + 1,
+            this.currentPage + 2
+          ]
+            .filter(item => item >= 1 && item <= this.totalPage)
+            .sort((a, b) => {
+              return a - b;
+            })
+        )
+      ].reduce((prev, current, index, array) => {
+        prev.push(current);
+        array[index + 1] !== undefined &&
+          array[index + 1] - array[index] > 1 &&
+          prev.push("...");
+        return prev;
+      }, []);
+      return pages;
+    }
+  },
+  methods: {
+    onClickPage(n) {
+      if (n >= 1 && n <= this.totalPage) {
+        this.$emit("update:currentPage", n);
+      }
+    }
   }
 };
 </script>
@@ -70,6 +86,9 @@ export default {
 .g-pager {
   display: flex;
   align-items: center;
+  &.hide{
+      display:none;
+  }
   &-item {
     display: inline-flex;
     cursor: pointer;
