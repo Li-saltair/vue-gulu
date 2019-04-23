@@ -100,16 +100,20 @@ new Vue({
     menu: ['two'],
     currentData: 1,
     selectedContent:[],
-    column: [{ text: '姓名', field: 'name' }, { text: '分数', field: 'score' }],
+    column: [{ text: '姓名', field: 'name',sort:'asc' }, { text: '分数', field: 'score',sort:'desc' }],
+    orderBy:{
+      name:true,  //显示排序
+      score:'desc'    //倒序
+    },
     dataSource: [
       { id: 1, name: '方方', score: '90' },
-      { id: 2, name: '圆圆', score: '99' },
-      { id: 2, name: '张三', score: '99' },
-      { id: 2, name: '李四', score: '99' },
-      { id: 2, name: '超人', score: '99' },
-      { id: 2, name: '二狗', score: '99' },
-      { id: 2, name: '陈皮', score: '99' },
-      { id: 2, name: '哈哈', score: '99' }
+      { id: 2, name: '圆圆', score: '89' },
+      { id: 3, name: '张三', score: '79' },
+      { id: 4, name: '李四', score: '77' },
+      { id: 5, name: '超人', score: '91' },
+      { id: 6, name: '二狗', score: '92' },
+      { id: 7, name: '陈皮', score: '93' },
+      { id: 8, name: '哈哈', score: '94' }
     ]
   },
   mounted() {
@@ -137,14 +141,9 @@ new Vue({
     //     fn(r) //把传递过来的回调函数调用一下
     //   })
     // }
-    x(object){
-      let {selected,item,index} = object
-      if(selected){
-        this.selectedContent.push(item)
-      } else {
-        let index = this.selectedContent.indexOf(item)
-        this.selectedContent.splice(index,1)
-      }
+    sortData(){
+      console.log('hhhh')
+      this.dataSource = this.dataSource.sort((a,b)=>a.score - b.score)
     }
     
   }

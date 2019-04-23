@@ -17,11 +17,10 @@
         width: 1em;
         height: 1em;
         vertical-align: -0.15em;
-        fill: #f66;
         overflow: hidden;
       }
       #root {
-        padding:100px;
+        padding: 100px;
       }
       .collapse {
         width: 500px;
@@ -180,12 +179,25 @@
           <g-nav-item name="ten">十</g-nav-item>
           <g-nav-item name="eleven">十一</g-nav-item>
         </g-nav>
-      </div> -->      
+      </div> -->
       <!-- 表格 -->
-      {{selectedContent}}
-      <g-table :columns="column" :data-source="dataSource" :border="false" :striped="false" @changeitem="x"></g-table>
+      {{ selectedContent }}
+      <g-table
+        :columns="column"
+        :data-source="dataSource"
+        :border="false"
+        :striped="false"
+        :selected-items.sync="selectedContent"
+        :order-by.sync="orderBy"
+        @update:orderby="sortData"
+        :loading="true"
+      ></g-table>
       <!-- 分页 -->
-      <g-pager :total-page="1" :current-page.sync="currentData" :hide-if-one-page="false"></g-pager>
+      <g-pager
+        :total-page="1"
+        :current-page.sync="currentData"
+        :hide-if-one-page="false"
+      ></g-pager>
     </div>
 
     <script src="./src/app.js"></script>

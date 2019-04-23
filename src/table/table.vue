@@ -1,19 +1,39 @@
 <template>
-  <div>
-    <table class="g-table" :class="{border:border,compact:compact,nostripe:!striped}">
+  <div class="g-table">
+    <table class="g-table-content" :class="{border:border,compact:compact,nostripe:!striped}">
       <thead>
         <tr>
           <th>
-            <input type="checkbox" @change="onChangeAllItems">
+            <input
+              type="checkbox"
+              @change="onChangeAllItems"
+              ref="allChecked"
+              :checked="isAllChecked"
+            >
           </th>
           <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.text">{{column.text}}</th>
+          <th v-for="column in columns" :key="column.field">
+            <div class="g-table-content-header">
+              {{column.text}}
+              <span
+                v-if="column.field in orderBy"
+                @click="changeOrderBy(column.field)"
+              >
+                <Icon name="arrow-up" :class="{active:orderBy[column.field] === 'asc'}"></Icon>
+                <Icon name="arrow-down" :class="{active:orderBy[column.field] === 'desc'}"></Icon>
+              </span>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in dataSource">
+        <tr v-for="(item,index) in dataSource" :key="item.id">
           <td>
-            <input type="checkbox" @change="onChangeItem(item,index,$event)">
+            <input
+              type="checkbox"
+              @change="onChangeItem(item,index,$event)"
+              :checked="inSelectItems(item)"
+            >
           </td>
           <td v-if="numberVisible">{{index+1}}</td>
           <template v-for="column in columns">
@@ -22,11 +42,18 @@
         </tr>
       </tbody>
     </table>
+    <div class="g-table-loading" v-if="loading">
+      <Icon name="loading" class="g-table-loading-icon"></Icon>
+    </div>
   </div>
 </template>
 <script>
+import Icon from "./../icon";
 export default {
   name: "Gtable",
+  components: {
+    Icon
+  },
   props: {
     columns: {
       type: Array,
@@ -34,7 +61,17 @@ export default {
     },
     dataSource: {
       type: Array,
-      required: true
+      required: true,
+      validator(array) {
+        if (array.filter(i => i.id === undefined).length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    },
+    height:{
+      type:[String,Number],
     },
     numberVisible: {
       type: Boolean,
@@ -52,66 +89,167 @@ export default {
       type: Boolean,
       default: true
     },
-    selectedItems:{
-        type:Array,
-        default:()=>[]
+    selectedItems: {
+      type: Array,
+      default: () => []
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    orderBy: {
+      type: Object,
+      default: () => ({})
+      // validator(object){
+
+      // }
     }
   },
-  methods:{
-      onChangeItem(item,index,e){
-          this.$emit('changeitem',{selected:e.target.checked,item,index})
-          //e.target.checked
-          //console.log(e.target.checked)
-      },
-      onChangeAllItems(e){
-          let selected = e.target.checked
-          this.dataSource.map((item,index)=>{
-              this.$emit('changeItem',{selected,item,index})
-          })
+  watch: {
+    selectedItems() {
+      if (this.selectedItems.length === this.dataSource.length) {
+        this.$refs.allChecked.indeterminate = false;
+      } else if (this.selectedItems.length === 0) {
+        this.$refs.allChecked.indeterminate = false;
+      } else {
+        this.$refs.allChecked.indeterminate = true;
       }
+    }
+  },
+  computed: {
+    isAllChecked() {
+      return this.dataSource.length === this.selectedItems.length;
+    }
+  },
+  methods: {
+    onChangeItem(item, index, e) {
+      let selected = e.target.checked;
+      let selectedItemsCopy = JSON.parse(JSON.stringify(this.selectedItems));
+      if (selected) {
+        selectedItemsCopy.push(item);
+      } else {
+        //如果未选中，就在copy数组中留下不等于此id的项
+        selectedItemsCopy = selectedItemsCopy.filter(i => i.id !== item.id);
+      }
+      this.$emit("update:selectedItems", selectedItemsCopy);
+    },
+    onChangeAllItems(e) {
+      let selected = e.target.checked;
+      this.$emit("update:selectedItems", selected ? this.dataSource : []);
+    },
+    inSelectItems(item) {
+      return this.selectedItems.filter(i => i.id === item.id).length > 0;
+    },
+    changeOrderBy(key) {
+      let copy = JSON.parse(JSON.stringify(this.orderBy));
+      let oldValue = copy[key];
+      if (oldValue === "asc") {
+        copy[key] = "desc";
+      } else if (oldValue === "desc") {
+        copy[key] = true;
+      } else {
+        copy[key] = "asc";
+      }
+      this.$emit("update:orderby", copy);
+    }
   }
 };
+//排序时的操作:
+//用户在组件标签上监听@update:orderBy="方法",在方法中进行其他操作
 </script>
 <style lang="scss" scoped>
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .g-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  border-bottom: 1px solid #e2e2e2;
-  &.border {
-    border: 1px solid #eee;
-    th,
-    td {
+  position: relative;
+  &-content {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-bottom: 1px solid #e2e2e2;
+    &.border {
       border: 1px solid #eee;
-    }
-  }
-  th,
-  td {
-    text-align: left;
-    border-bottom: 1px solid #eee;
-    padding: 8px;
-  }
-  &.compact {
-    th,
-    td {
-      padding: 3px;
-    }
-  }
-  tbody {
-    > tr {
-      &:nth-child(even) {
-        background: #f8f8f8;
-      }
-      &:nth-child(odd) {
-        background: #fff;
+      th,
+      td {
+        border: 1px solid #eee;
       }
     }
-  }
-  &.nostripe {
+    th,td {
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      padding: 8px;
+    }
+    &-header {
+      display: flex;
+      align-items: center;
+      span {
+        display: inline-flex;
+        margin-left: 10px;
+        flex-direction: column;
+        svg {
+          width: 0.6em;
+          height: 0.6em;
+          cursor: pointer;
+        }
+      }
+    }
+    &.compact {
+      th,
+      td {
+        padding: 3px;
+      }
+    }
     tbody {
       > tr {
-        background: #fff;
+        &:nth-child(even) {
+          background: #f8f8f8;
+        }
+        &:nth-child(odd) {
+          background: #fff;
+        }
       }
+    }
+    &.nostripe {
+      tbody {
+        > tr {
+          background: #fff;
+        }
+      }
+    }
+    .icon {
+      fill: #aaa;
+      &.active {
+        fill: #597ef7;
+      }
+    }
+  }
+}
+
+.g-table-loading {
+  position: absolute;
+  width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  .icon {
+    
+    &.g-table-loading-icon {
+      fill: #597ef7;
+      width: 2em;
+      height: 2em;
+      animation: spin 1s linear infinite;
     }
   }
 }
