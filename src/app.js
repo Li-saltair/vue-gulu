@@ -99,11 +99,14 @@ new Vue({
     selected: '2',
     menu: ['two'],
     currentData: 1,
-    selectedContent:[],
-    column: [{ text: '姓名', field: 'name',sort:'asc' }, { text: '分数', field: 'score',sort:'desc' }],
-    orderBy:{
-      name:true,  //显示排序
-      score:'desc'    //倒序
+    selectedContent: [],
+    column: [
+      { text: '姓名', field: 'name', sort: 'asc' },
+      { text: '分数', field: 'score', sort: 'desc' }
+    ],
+    orderBy: {
+      name: true, //显示排序
+      score: 'desc' //倒序
     },
     dataSource: [
       { id: 1, name: '方方', score: '90' },
@@ -113,7 +116,18 @@ new Vue({
       { id: 5, name: '超人', score: '91' },
       { id: 6, name: '二狗', score: '92' },
       { id: 7, name: '陈皮', score: '93' },
-      { id: 8, name: '哈哈', score: '94' }
+      { id: 8, name: '哈哈', score: '94' },
+      { id: 9, name: '哈哈', score: '94' },
+      { id: 10, name: '哈哈', score: '94' },
+      { id: 11, name: '哈哈', score: '94' },
+      { id: 12, name: '哈哈', score: '94' },
+      { id: 13, name: '哈哈', score: '94' },
+      { id: 14, name: '哈哈', score: '94' },
+      { id: 15, name: '哈哈', score: '94' },
+      { id: 16, name: '哈哈', score: '94' },
+      { id: 17, name: '哈哈', score: '94' },
+      { id: 18, name: '哈哈', score: '94' },
+      { id: 19, name: '哈哈', score: '94' }
     ]
   },
   mounted() {
@@ -141,10 +155,9 @@ new Vue({
     //     fn(r) //把传递过来的回调函数调用一下
     //   })
     // }
-    sortData(){
+    sortData() {
       console.log('hhhh')
-      this.dataSource = this.dataSource.sort((a,b)=>a.score - b.score)
+      this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
     }
-    
   }
 })

@@ -186,11 +186,9 @@
         :columns="column"
         :data-source="dataSource"
         :border="false"
-        :striped="false"
         :selected-items.sync="selectedContent"
         :order-by.sync="orderBy"
         @update:orderby="sortData"
-        :loading="true"
       ></g-table>
       <!-- 分页 -->
       <g-pager
