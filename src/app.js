@@ -101,16 +101,16 @@ new Vue({
     currentData: 1,
     selectedContent: [],
     column: [
-      { text: '姓名', field: 'name', sort: 'asc' },
+      { text: '姓名', field: 'name', sort: 'asc', width:200 },
       { text: '分数', field: 'score', sort: 'desc' }
     ],
     orderBy: {
-      name: true, //显示排序
-      score: 'desc' //倒序
+      //name: 'asc', //显示排序
+      score: 'asc' //倒序
     },
     dataSource: [
-      { id: 1, name: '方方', score: '90' },
-      { id: 2, name: '圆圆', score: '89' },
+      { id: 1, name: '方方', score: '90', description:'的世界观和电话记得告诉觉得韩国釜山' },
+      { id: 2, name: '圆圆', score: '89', description:'的美好方式和电的技术风格还是数据库很快' },
       { id: 3, name: '张三', score: '79' },
       { id: 4, name: '李四', score: '77' },
       { id: 5, name: '超人', score: '91' },
@@ -131,6 +131,7 @@ new Vue({
     ]
   },
   mounted() {
+    
     // ajax2(0).then(r => {
     //   this.source = r
     // })
@@ -156,7 +157,7 @@ new Vue({
     //   })
     // }
     sortData() {
-      console.log('hhhh')
+      console.log('哈哈哈')
       this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
     }
   }

@@ -185,10 +185,13 @@
       <g-table
         :columns="column"
         :data-source="dataSource"
-        :border="false"
+        :border="true"
         :selected-items.sync="selectedContent"
         :order-by.sync="orderBy"
-        @update:orderby="sortData"
+        @update:order-by="sortData"
+        expand-field="description"
+        :center="true"
+        :expand-key-field="false"
       ></g-table>
       <!-- 分页 -->
       <g-pager
