@@ -30,6 +30,9 @@
                 </span>
               </div>
             </th>
+            <th>
+
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -50,6 +53,9 @@
               <template v-for="column in columns">
                 <td :key="column.field" :style="{width:column.width + 'px'}">{{item[column.field]}}</td>
               </template>
+              <td>
+                <slot name="operate" :item="item" hh="frank"></slot>
+              </td>
             </tr>
             <tr v-if="inExpandedIds(item.id)" :key="`${item.id} + expand`">
               <td :colspan="columns.length + result">{{item[expandField] || '无'}}</td>

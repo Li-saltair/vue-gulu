@@ -192,7 +192,13 @@
         expand-field="description"
         :center="true"
         :expand-key-field="false"
-      ></g-table>
+      >
+      <template v-slot:operate="xxx">
+        {{xxx}}
+        <button>编辑</button>
+        <button>删除</button>
+      </template>
+      </g-table>
       <!-- 分页 -->
       <g-pager
         :total-page="1"
