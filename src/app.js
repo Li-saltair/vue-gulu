@@ -27,6 +27,7 @@ import SubNav from './nav/sub-nav'
 import NavItem from './nav/nav-item'
 import Pager from './pager'
 import Table from './table/table'
+import Sticky from './sticky'
 //import db from "../test/fixtures/_db"
 
 Vue.component('g-button', Button)
@@ -57,6 +58,7 @@ Vue.component('g-nav-item', NavItem)
 Vue.component('g-sub-nav', SubNav)
 Vue.component('g-pager', Pager)
 Vue.component('g-table', Table)
+Vue.component('g-sticky', Sticky)
 
 // function ajax(pid = 0) {
 //   //pid是上一级的ID

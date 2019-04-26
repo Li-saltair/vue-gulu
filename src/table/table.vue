@@ -190,10 +190,8 @@ export default {
     table2.appendChild(tHead);
     this.$refs.wrapper.appendChild(table2);
     //自定义操作按钮相关
-    //console.log(this.$scopedSlots)
     if (this.$scopedSlots.operate) {
       let div = this.$refs.operations[0];
-      console.log(this.$refs)
       let { width } = div.getBoundingClientRect();
       let parent = div.parentNode; //td
       let style = getComputedStyle(parent);

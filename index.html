@@ -180,6 +180,8 @@
           <g-nav-item name="eleven">十一</g-nav-item>
         </g-nav>
       </div> -->
+      <!-- 固钉 -->
+      
       <!-- 表格 -->
       <g-table
         :columns="column"
@@ -203,7 +205,9 @@
         :current-page.sync="currentData"
         :hide-if-one-page="false"
       ></g-pager>
-
+      <g-sticky>
+          <div>粘滞按钮</div>
+        </g-sticky>
       <br>
       <g-table
         :columns="column"
