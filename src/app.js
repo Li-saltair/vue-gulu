@@ -102,7 +102,7 @@ new Vue({
     selectedContent: [],
     column: [
       { text: '姓名', field: 'name', sort: 'asc', width:200 },
-      { text: '分数', field: 'score', sort: 'desc', width:200 }
+      { text: '分数', field: 'score', sort: 'desc' }
     ],
     orderBy: {
       //name: 'asc', //显示排序

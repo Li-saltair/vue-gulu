@@ -181,7 +181,6 @@
         </g-nav>
       </div> -->
       <!-- 表格 -->
-      {{ selectedContent }}
       <g-table
         :columns="column"
         :data-source="dataSource"
@@ -194,7 +193,6 @@
         :expand-key-field="false"
       >
       <template v-slot:operate="xxx">
-        {{xxx}}
         <button>编辑</button>
         <button>删除</button>
       </template>
@@ -205,6 +203,21 @@
         :current-page.sync="currentData"
         :hide-if-one-page="false"
       ></g-pager>
+
+      <br>
+      <g-table
+        :columns="column"
+        :data-source="dataSource"
+        :border="true"
+        :selected-items.sync="selectedContent"
+        :order-by.sync="orderBy"
+        @update:order-by="sortData"
+        expand-field="description"
+        :center="true"
+        :expand-key-field="false"
+        :compact="true"
+      >
+      </g-table>
     </div>
 
     <script src="./src/app.js"></script>

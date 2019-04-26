@@ -30,16 +30,18 @@
                 </span>
               </div>
             </th>
-            <th>
-
-            </th>
+            <th v-if="$scopedSlots.operate" ref="operationsWrapper"></th>
           </tr>
         </thead>
         <tbody>
           <template v-for="(item,index) in dataSource">
             <!-- 表格主体内容 -->
             <tr :key="item.id">
-              <td :style="{width:'50px',cursor: 'pointer'}" @click="toggleExpand(item.id)" v-if="expandKeyField">
+              <td
+                :style="{width:'50px',cursor: 'pointer'}"
+                @click="toggleExpand(item.id)"
+                v-if="expandKeyField"
+              >
                 <Icon name="right" class="expand-icon"></Icon>
               </td>
               <td :style="{width:'100px'}" v-if="checkAble">
@@ -53,8 +55,10 @@
               <template v-for="column in columns">
                 <td :key="column.field" :style="{width:column.width + 'px'}">{{item[column.field]}}</td>
               </template>
-              <td>
-                <slot name="operate" :item="item" hh="frank"></slot>
+              <td v-if="$scopedSlots.operate">
+                <div ref="operations" style="display:inline-block">
+                  <slot name="operate" :item="item"></slot>
+                </div>
               </td>
             </tr>
             <tr v-if="inExpandedIds(item.id)" :key="`${item.id} + expand`">
@@ -134,13 +138,13 @@ export default {
     expandField: {
       type: [String, Number]
     },
-    expandKeyField:{
-      type:Boolean,
-      default:true
+    expandKeyField: {
+      type: Boolean,
+      default: true
     },
-    checkAble:{
-      type:Boolean,
-      default:false
+    checkAble: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -163,15 +167,15 @@ export default {
     isAllChecked() {
       return this.dataSource.length === this.selectedItems.length;
     },
-    expandedCellColSpan(){
-      let result = 0
-      if(this.expandKeyField){
-        result +=1
+    expandedCellColSpan() {
+      let result = 0;
+      if (this.expandKeyField) {
+        result += 1;
       }
-      if(this.checkAble){
-        result+=1
+      if (this.checkAble) {
+        result += 1;
       }
-      return result
+      return result;
     }
   },
   mounted() {
@@ -185,6 +189,24 @@ export default {
     //向新增的table中添加thead
     table2.appendChild(tHead);
     this.$refs.wrapper.appendChild(table2);
+    //自定义操作按钮相关
+    //console.log(this.$scopedSlots)
+    if (this.$scopedSlots.operate) {
+      let div = this.$refs.operations[0];
+      console.log(this.$refs)
+      let { width } = div.getBoundingClientRect();
+      let parent = div.parentNode; //td
+      let style = getComputedStyle(parent);
+      let paddingLeft = style.getPropertyValue("padding-left");
+      let paddingRight = style.getPropertyValue("padding-right");
+      let borderLeft = style.getPropertyValue("border-left");
+      let borderRight = style.getPropertyValue("border-right");
+      let width2 =width + parseInt(paddingLeft) + parseInt(paddingRight) + parseInt(borderLeft) + parseInt(borderRight) + 'px'
+      this.$refs.operationsWrapper.style.width = width2
+      this.$refs.operations.map(div=>{
+        div.parentNode.style.width = width2
+      })
+    }
   },
   beforeDestroy() {
     this.table2.remove();
@@ -256,6 +278,7 @@ export default {
 
   &-content {
     width: 100%;
+    font-size: 14px;
     border-collapse: collapse;
     border-spacing: 0;
     border-bottom: 1px solid #e2e2e2;
@@ -292,7 +315,8 @@ export default {
     &.compact {
       th,
       td {
-        padding: 3px;
+        padding: 4px;
+        font-size: 12px;
       }
     }
     tbody {
