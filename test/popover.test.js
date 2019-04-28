@@ -1,6 +1,6 @@
 const expect = chai.expect;
 import Vue from "vue";
-import Popover from "../src/popover/";
+import Popover from "../src/popover";
 import Button from "../src/button/button";
 
 Vue.config.productionTip = false;
