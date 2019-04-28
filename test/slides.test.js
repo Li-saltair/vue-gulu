@@ -72,7 +72,6 @@ describe("Slides", () => {
       //setTimeout(() => {
       vm.$nextTick(done => {
         let result = vm.$el.querySelector(".slide-item")
-        //console.log(result.innerText)
         expect(result.innerText === "2").to.be.true
         done()
       })

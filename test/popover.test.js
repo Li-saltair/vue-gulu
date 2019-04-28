@@ -57,7 +57,6 @@ describe("Popover", () => {
       let event = new Event('mouseenter')
       vm.$el.dispatchEvent(event)
       vm.$nextTick(()=>{
-        //console.log(vm.$refs.a.$refs.popoverWrapper) vm是组件实例
         expect(vm.$refs.a.$refs.popoverWrapper).to.exist
         done()
       })
