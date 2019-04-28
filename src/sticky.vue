@@ -1,6 +1,6 @@
 <template>
-  <div class="g-sticky" ref="wrapper" >
-    <div :class="classes">
+  <div class="g-sticky" ref="wrapper" :style="{height}">
+    <div :class="classes" :style="{width,left,top}">
       <slot></slot>
     </div>
   </div>
@@ -8,25 +8,28 @@
 <script>
 export default {
   name: "Sticky",
+  props:{
+      distance:{
+          type:Number,
+          default:0
+      }
+  },
   data() {
     return {
-      sticky: false
+      sticky: false,
+      width: undefined,
+      left: undefined,
+      height: undefined,
+      top:undefined
     };
   },
   mounted() {
-    let {top,height} = this.getTopAndHeight();
-    this.$refs.wrapper.style.height = height + 'px'
-    
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > top) {
-        this.sticky = true;
-      } else {
-        this.sticky = false;
-      }
-    });
+    this.windowScrollHandler = this._windowScrollHandler.bind(this);
+    window.addEventListener("scroll", this.windowScrollHandler);
   },
+  watch: {},
   beforeDestroy() {
-    //window.removeEventListener("scroll", () => {});
+    window.removeEventListener("scroll", this.windowScrollHandler);
   },
   computed: {
     classes() {
@@ -34,12 +37,37 @@ export default {
     }
   },
   methods: {
-    getTopAndHeight() {
-      let { top,height } = this.$refs.wrapper.getBoundingClientRect();
+    getTop() {
+      let { top } = this.$refs.wrapper.getBoundingClientRect();
       top = top + window.scrollY;
-      return {
-          top,height
-      };
+      return { top };
+    },
+    getHeight() {
+      let { height } = this.$refs.wrapper.getBoundingClientRect();
+      return { height };
+    },
+    _windowScrollHandler() {
+      let { top } = this.getTop();
+      if (window.scrollY > top -this.distance) {
+        let {
+          width,
+          height,
+          top,
+          left
+        } = this.$refs.wrapper.getBoundingClientRect();
+        this.$refs.wrapper.style.height = height + "px";
+        this.height = height + "px";
+        this.width = width + "px";
+        this.left = left + "px";
+        this.top = this.distance + 'px'
+        this.sticky = true;
+      } else {
+          this.height = undefined
+        this.width = undefined
+        this.left = undefined
+        this.top = undefined
+        this.sticky = false;
+      }
     }
   }
 };
@@ -47,12 +75,9 @@ export default {
 <style lang="scss" scoped>
 .g-sticky {
   border: 1px solid #f66;
-   .sticky {
+  .sticky {
     background: #f66;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
     z-index: 9;
   }
 }
