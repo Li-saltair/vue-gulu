@@ -28,6 +28,7 @@ import NavItem from './nav/nav-item'
 import Pager from './pager'
 import Table from './table/table'
 import Sticky from './sticky'
+import Uploader from './uploader'
 //import db from "../test/fixtures/_db"
 
 Vue.component('g-button', Button)
@@ -59,6 +60,7 @@ Vue.component('g-sub-nav', SubNav)
 Vue.component('g-pager', Pager)
 Vue.component('g-table', Table)
 Vue.component('g-sticky', Sticky)
+Vue.component('g-uploader', Uploader)
 
 // function ajax(pid = 0) {
 //   //pid是上一级的ID
@@ -130,7 +132,8 @@ new Vue({
       { id: 17, name: '哈哈', score: '94' },
       { id: 18, name: '哈哈', score: '94' },
       { id: 19, name: '哈哈', score: '94' }
-    ]
+    ],
+    fileList:[]
   },
   mounted() {
     
@@ -161,6 +164,11 @@ new Vue({
     sortData() {
       console.log('哈哈哈')
       this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
+    },
+    parseFunc(res){     
+      let obj = JSON.parse(res)
+      let url = `http://localhost:3001/preview/${obj.key}`
+      return url
     }
   }
 })

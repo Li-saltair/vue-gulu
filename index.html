@@ -38,15 +38,6 @@
         justify-content: center;
         align-items: center;
       }
-      .mask{
-        position: absolute;;
-        left:0;
-        right:0;
-        bottom:0;
-        top:0;
-        background:rgba(0,0,0,.45);
-        z-index:9999
-      }
     </style>
   </head>
   <body>
@@ -190,9 +181,9 @@
         </g-nav>
       </div> -->
       <!-- 固钉 -->
-      
+
       <!-- 表格 -->
-      <g-table
+      <!-- <g-table
         :columns="column"
         :data-source="dataSource"
         :border="true"
@@ -207,18 +198,19 @@
         <button>编辑</button>
         <button>删除</button>
       </template>
-      </g-table>
+      </g-table> -->
       <!-- 分页 -->
-      <g-pager
+      <!-- <g-pager
         :total-page="1"
         :current-page.sync="currentData"
         :hide-if-one-page="false"
-      ></g-pager>
-      <g-sticky :distance="100">
-          <div>粘滞按钮</div>
-        </g-sticky>
-      <br>
-      <g-table
+      ></g-pager> -->
+      <!-- 固钉 -->
+      <!-- <g-sticky :distance="100">
+        <div>粘滞按钮</div>
+      </g-sticky> -->
+      <!-- 表格 -->
+      <!-- <g-table
         :columns="column"
         :data-source="dataSource"
         :border="true"
@@ -230,53 +222,17 @@
         :expand-key-field="false"
         :compact="true"
       >
-      </g-table>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
-      <p>哈哈</p>
+      </g-table> -->
+      <!-- 上传组件（主要是图片） -->
+      <g-uploader accept="image/*" action="http://localhost:3001/upload" name="file" :parseresponse="parseFunc" :file-list.sync="fileList">
+        <button>upload</button>
+        <template slot="tips">
+          <div>
+            只能上传300KB以内的png、jpg文件
+          </div>
+        </template>
+      </g-uploader>
+      <button>保存</button>
     </div>
 
     <script src="./src/app.js"></script>
