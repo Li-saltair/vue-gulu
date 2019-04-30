@@ -7,11 +7,9 @@
     <slot name="tips"></slot>
     <ol>
       <li v-for="item in fileList" :key="item.name">
-          <template v-if="item.status === 'uploading'">
-              <div>
-                    loading 
-              </div>
-          </template>
+        <template v-if="item.status === 'uploading'">
+          <div>loading</div>
+        </template>
         <img :src="url" alt="preview">
         {{item.name}}
         <button @click="OnRemoveFile(item)">删除</button>
@@ -55,10 +53,8 @@ export default {
     onClickUpload() {
       let input = this.createInput();
       //listen to input
-
       input.addEventListener("change", () => {
-        let file = input.files[0];
-        this.uploadFile(file);
+        this.uploadFile(input.files[0]);
         input.remove();
       });
       //trigger click
@@ -71,7 +67,7 @@ export default {
       this.$refs.inputFile.appendChild(input);
       return input;
     },
-    doUploadFile(formData,success) {
+    doUploadFile(formData, success,fail) {
       //success是回调函数
       //ajax
       let xhr = new XMLHttpRequest();
@@ -82,27 +78,29 @@ export default {
       };
       xhr.send(formData);
     },
-    uploadFile(file) {
+    uploadFile(rawFile) {
       //upload file
-      this.beforeUploadFile(file)
+      let newName = this.generateNewName(name)
+      this.beforeUploadFile(rawFile,newName);
       let formData = new FormData();
-      formData.append(this.name, file);
-      //console.log(file)
-      let { name, size, type } = file;
-      this.doUploadFile(formData,response => {
-        this.url = this.parseresponse(response);
+      formData.append(this.name, rawFile);
+      let { name, size, type } = rawFile;
+      this.doUploadFile(formData, response => {
+          let url = this.parseresponse(response);
+        this.url = url
+        this.afterLoadFile(newName,url)
+      },()=>{
+          this.uploadError(newName)
+      });
+    },
+    generateNewName(name){
         while (this.fileList.filter(f => f.name === name).length > 0) {
           let dotIndex = name.lastIndexOf(".");
           let part1 = name.substring(0, dotIndex);
           let part2 = name.substring(dotIndex);
           name = part1 + "(1)" + part2;
         }
-        this.afterLoadFile()
-        this.$emit("update:fileList", [
-          ...this.fileList,
-          { name, type, size, url: this.url }
-        ]);
-      });
+        return name
     },
     OnRemoveFile(file) {
       let answer = window.confirm("你确定要删除此文件吗");
@@ -113,12 +111,31 @@ export default {
         this.$emit("update:fileList", copy);
       }
     },
-    beforeUploadFile(file){
-        let { name, size, type } = file;
-        this.$emit('update:fileList',[...fileList,{name,type,size,status:'uploading'}])
+    beforeUploadFile(rawFile,newName,url) {
+      let { size, type } = rawFile;
+      this.$emit("update:fileList", [
+        ...this.fileList,
+        { name:newName, type, size, status: "uploading" }
+      ]);
     },
-    afterLoadFile(){
-        
+    afterLoadFile(newName, url) {
+      let file = this.fileList.filter(file => file.name === newName)[0];
+      let index = this.fileList.indexOf(file);
+      let copy = JSON.parse(JSON.stringify(file));
+      copy.url = url;
+      copy.status = "success";
+      let fileListCopy = Array.from(this.fileList)
+      fileListCopy.splice(index, 1, copy);
+      this.$emit("update:fileList", fileListCopy);
+    },
+    uploadError(newName){
+        let file = this.fileList.filter(file=>file.name === newName)[0]
+        let copy = JSON.parse(JSON.stringify(file))
+        copy.status = 'failed'
+        let fileListCopy = Array.from(this.fileList)
+        let index = this.fileList.indexOf(file)
+        fileListCopy.splice(index,1,copy)
+        this.$emit('update:fileList',fileListCopy)
     }
   }
 };
