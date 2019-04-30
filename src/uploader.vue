@@ -19,8 +19,7 @@
           <div class="g-uploader-default-image"></div>
         </template>
         <span class="g-uploader-list-unit-filename" :class="item.status">{{item.name}}</span>
-
-        <Icon name="delete" @click="OnRemoveFile(item)"></Icon>
+        <Icon name="delete" @click="OnRemoveFile(item)" class="delete-file"></Icon>
       </li>
     </ol>
   </div>
@@ -32,7 +31,7 @@ export default {
   name: "Guploader",
   components: {
     Icon,
-    'g-button':Button
+    "g-button": Button
   },
   props: {
     //表单中file的name
@@ -55,6 +54,10 @@ export default {
     fileList: {
       type: Array,
       default: () => []
+    },
+    sizeLimit:{
+        type:Number,
+        default:2
     }
   },
   data() {
@@ -76,6 +79,8 @@ export default {
       input.click();
     },
     createInput() {
+      //每次创建新的input之前清空之前的内容
+      this.$refs.inputFile.innerHTML = "";
       // create input
       const input = document.createElement("input");
       input.type = "file";
@@ -91,13 +96,19 @@ export default {
         success(xhr.response);
         //获取服务器的response
       };
+      xhr.onerror = () => {
+        fail(xhr);
+      };
       xhr.send(formData);
     },
     uploadFile(rawFile) {
       //upload file
       let { name, size, type } = rawFile;
       let newName = this.generateNewName(name);
-      this.beforeUploadFile(rawFile, newName);
+      let bool = this.beforeUploadFile(rawFile, newName);
+      if (!bool) {
+        return;
+      }
       let formData = new FormData();
       formData.append(this.name, rawFile);
       this.doUploadFile(
@@ -107,8 +118,8 @@ export default {
           this.url = url;
           this.afterLoadFile(newName, url);
         },
-        () => {
-          this.uploadError(newName);
+        xhr => {
+          this.uploadError(xhr, newName);
         }
       );
     },
@@ -132,10 +143,16 @@ export default {
     },
     beforeUploadFile(rawFile, newName) {
       let { size, type } = rawFile;
-      this.$emit("update:fileList", [
-        ...this.fileList,
-        { name: newName, type, size, status: "uploading" }
-      ]);
+      if (size > this.sizeLimit * 1024 * 1024) {
+        this.$emit("error", "文件过大");
+        return false;
+      } else {
+        this.$emit("update:fileList", [
+          ...this.fileList,
+          { name: newName, type, size, status: "uploading" }
+        ]);
+        return true;
+      }
     },
     afterLoadFile(newName, url) {
       let file = this.fileList.filter(file => file.name === newName)[0];
@@ -147,7 +164,7 @@ export default {
       fileListCopy.splice(index, 1, copy);
       this.$emit("update:fileList", fileListCopy);
     },
-    uploadError(newName) {
+    uploadError(xhr, newName) {
       let file = this.fileList.filter(file => file.name === newName)[0];
       let copy = JSON.parse(JSON.stringify(file));
       copy.status = "failed";
@@ -155,6 +172,12 @@ export default {
       let index = this.fileList.indexOf(file);
       fileListCopy.splice(index, 1, copy);
       this.$emit("update:fileList", fileListCopy);
+      //失败后触发的事件
+      let error = "";
+      if (xhr.status === 0) {
+        error = "网络似乎有些问题哦……";
+      }
+      this.$emit("error", error);
     }
   }
 };
@@ -177,6 +200,13 @@ export default {
       > img {
         margin-right: 1em;
       }
+      .icon.delete-file {
+        cursor: pointer;
+        margin-left: 2em;
+        width: 1.2em;
+        height: 1.2em;
+        align-items: center;
+      }
       &-filename {
         &.success {
           color: #01c957;
@@ -193,17 +223,12 @@ export default {
       &-loading {
         &-content {
           fill: #597ef7;
+          width: 50px;
+          height: 50px;
           animation: spin 1s linear infinite;
         }
       }
     }
-  }
-  .icon{
-      cursor:pointer;
-      margin-left:2em;
-      width:1.2em;
-      height:1.2em;
-      align-items:center;
   }
 }
 </style>

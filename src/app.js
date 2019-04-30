@@ -169,6 +169,9 @@ new Vue({
       let obj = JSON.parse(res)
       let url = `http://localhost:3001/preview/${obj.key}`
       return url
+    },
+    error(msg){
+      alert(msg || '上传失败')
     }
   }
 })

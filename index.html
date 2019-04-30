@@ -38,14 +38,14 @@
         justify-content: center;
         align-items: center;
       }
-      .upload-tips{
+      .upload-tips {
         align-items: center;
-        font-size:12px;
-        color:#1890ff;
-        margin:10px 0;
+        font-size: 12px;
+        color: #1890ff;
+        margin: 10px 0;
       }
-      .icon{
-        fill:#1890ff;
+      .icon {
+        fill: #1890ff;
       }
     </style>
   </head>
@@ -233,7 +233,14 @@
       >
       </g-table> -->
       <!-- 上传组件（主要是图片） -->
-      <g-uploader accept="image/*" action="http://localhost:3001/upload" name="file" :parseresponse="parseFunc" :file-list.sync="fileList">
+      <g-uploader
+        accept="image/*"
+        action="http://localhost:3001/upload"
+        name="file"
+        :parseresponse="parseFunc"
+        :file-list.sync="fileList"
+        @error="error"
+      >
         <g-button icon="upload">upload</g-button>
         <template slot="tips">
           <div class="upload-tips">
