@@ -55,9 +55,9 @@ export default {
       type: Array,
       default: () => []
     },
-    sizeLimit:{
-        type:Number,
-        default:2
+    sizeLimit: {
+      type: Number,
+      default: 2
     }
   },
   data() {
@@ -72,7 +72,8 @@ export default {
       let input = this.createInput();
       //listen to input
       input.addEventListener("change", () => {
-        this.uploadFile(input.files[0]);
+        //多文件上传
+        this.uploadFiles(input.files);
         input.remove();
       });
       //trigger click
@@ -84,10 +85,12 @@ export default {
       // create input
       const input = document.createElement("input");
       input.type = "file";
+      //支持多选
+      input.multiple = true;
       this.$refs.inputFile.appendChild(input);
       return input;
     },
-    doUploadFile(formData, success, fail) {
+    doUploadFiles(formData, success, fail) {
       //success是回调函数
       //ajax
       let xhr = new XMLHttpRequest();
@@ -101,27 +104,30 @@ export default {
       };
       xhr.send(formData);
     },
-    uploadFile(rawFile) {
-      //upload file
-      let { name, size, type } = rawFile;
-      let newName = this.generateNewName(name);
-      let bool = this.beforeUploadFile(rawFile, newName);
-      if (!bool) {
-        return;
-      }
-      let formData = new FormData();
-      formData.append(this.name, rawFile);
-      this.doUploadFile(
-        formData,
-        response => {
-          let url = this.parseresponse(response);
-          this.url = url;
-          this.afterLoadFile(newName, url);
-        },
-        xhr => {
-          this.uploadError(xhr, newName);
+    uploadFiles(rawFiles) {
+      for (let i = 0; i < rawFiles.length; i++) {
+        let rawFile = rawFiles[i];
+        let formData = new FormData();
+        formData.append(this.name, rawFile);
+        let { name, size, type } = rawFile;
+        let newName = this.generateNewName(name);
+        let bool = this.beforeUploadFile(rawFile, newName);
+        if (!bool) {
+          return;
         }
-      );
+        this.doUploadFiles(
+          formData,
+          response => {
+            let url = this.parseresponse(response);
+            this.url = url;
+            this.afterLoadFile(newName, url);
+          },
+          xhr => {
+            this.uploadError(xhr, newName);
+          }
+        );
+        
+      }
     },
     generateNewName(name) {
       while (this.fileList.filter(f => f.name === name).length > 0) {
@@ -147,10 +153,12 @@ export default {
         this.$emit("error", "文件过大");
         return false;
       } else {
-        this.$emit("update:fileList", [
-          ...this.fileList,
-          { name: newName, type, size, status: "uploading" }
-        ]);
+        // this.$emit("update:fileList", [
+        //   ...this.fileList,
+        //   { name: newName, type, size, status: "uploading" }
+        // ]);
+        //目前必须添加一个其他事件来保证文件的正常展示
+        this.$emit('add-file', { name: newName, type, size, status: "uploading" })
         return true;
       }
     },
@@ -158,6 +166,7 @@ export default {
       let file = this.fileList.filter(file => file.name === newName)[0];
       let index = this.fileList.indexOf(file);
       let copy = JSON.parse(JSON.stringify(file));
+      console.log(file)
       copy.url = url;
       copy.status = "success";
       let fileListCopy = Array.from(this.fileList);

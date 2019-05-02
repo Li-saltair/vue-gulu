@@ -172,6 +172,10 @@ new Vue({
     },
     error(msg){
       alert(msg || '上传失败')
+    },
+    addFile(value){
+      //console.log(value)
+      this.fileList.push(value)
     }
   }
 })

@@ -240,6 +240,7 @@
         :parseresponse="parseFunc"
         :file-list.sync="fileList"
         @error="error"
+        @add-file="addFile"
       >
         <g-button icon="upload">upload</g-button>
         <template slot="tips">
