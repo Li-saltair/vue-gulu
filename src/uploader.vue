@@ -105,16 +105,23 @@ export default {
       xhr.send(formData);
     },
     uploadFiles(rawFiles) {
+        let newNames = []
       for (let i = 0; i < rawFiles.length; i++) {
         let rawFile = rawFiles[i];
-        let formData = new FormData();
-        formData.append(this.name, rawFile);
         let { name, size, type } = rawFile;
         let newName = this.generateNewName(name);
+        newNames[i] = newName
         let bool = this.beforeUploadFile(rawFile, newName);
         if (!bool) {
           return;
         }
+      }
+      for (let i = 0; i < rawFiles.length; i++) {
+        let rawFile = rawFiles[i];
+        let { name, size, type } = rawFile;
+        let newName = newNames[i];
+        let formData = new FormData();
+        formData.append(this.name, rawFile);
         this.doUploadFiles(
           formData,
           response => {
@@ -126,7 +133,6 @@ export default {
             this.uploadError(xhr, newName);
           }
         );
-        
       }
     },
     generateNewName(name) {
@@ -158,7 +164,12 @@ export default {
         //   { name: newName, type, size, status: "uploading" }
         // ]);
         //目前必须添加一个其他事件来保证文件的正常展示
-        this.$emit('add-file', { name: newName, type, size, status: "uploading" })
+        this.$emit("add-file", {
+          name: newName,
+          type,
+          size,
+          status: "uploading"
+        });
         return true;
       }
     },
@@ -166,7 +177,7 @@ export default {
       let file = this.fileList.filter(file => file.name === newName)[0];
       let index = this.fileList.indexOf(file);
       let copy = JSON.parse(JSON.stringify(file));
-      console.log(file)
+      console.log(file);
       copy.url = url;
       copy.status = "success";
       let fileListCopy = Array.from(this.fileList);
