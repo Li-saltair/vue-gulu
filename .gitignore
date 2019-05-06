@@ -22,3 +22,6 @@ yarn-error.log*
 
 # parcel
 .cache
+
+# npm publish
+.npmignore
