@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Button from './button/button'
 import Icon from './icon'
 import ButtonGroup from './button/button-group'
-import Ginput from './input'
+import Input from './input'
 import Row from './grid/row'
 import Col from './grid/col'
 import Header from './layout/header'
@@ -34,7 +34,7 @@ import Uploader from './uploader'
 Vue.component('g-button', Button)
 Vue.component('g-icon', Icon)
 Vue.component('g-button-group', ButtonGroup)
-Vue.component('g-input', Ginput)
+Vue.component('g-input', Input)
 Vue.component('g-row', Row)
 Vue.component('g-col', Col)
 Vue.component('g-content', Content)
