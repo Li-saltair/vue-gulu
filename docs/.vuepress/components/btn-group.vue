@@ -33,7 +33,7 @@ export default {
 </script>
 <style >
 .icon {
-  fill: #7c7;
+  fill: #722ed1;
 }
 </style>
 

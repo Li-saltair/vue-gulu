@@ -1,5 +1,5 @@
 <template>
-  <div class="layout" :class="layoutClasses">
+  <div class="g-layout" :class="layoutClasses">
     <slot></slot>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.layout {
+.g-layout {
   display: flex;
   flex-direction: column;
   flex-grow:1;

@@ -17,6 +17,7 @@ module.exports = {
                 '/components/input',
                 '/components/toast',
                 '/components/popover',
+                '/components/layout',
             ]
           },
         ]

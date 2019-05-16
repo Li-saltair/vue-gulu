@@ -13,7 +13,7 @@
       </template>
     </g-popover>
 
-    <g-popover trigger="hover">
+    <g-popover trigger="hover">  
       <template>
         <div>
           <g-button>默认方向</g-button>
@@ -66,7 +66,7 @@ export default {
 </script>
 <style >
   .icon{
-    fill:#7c7;
+    fill:#722ed1;
   }
 </style>
 

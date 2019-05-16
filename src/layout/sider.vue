@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <div class="sider" v-if="visible">
+    <div class="g-sider" v-if="visible">
       <slot></slot>
       <button @click="visible = !visible">Close</button>
     </div>
@@ -19,7 +19,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.sider {
+.g-sider {
   position: relative;
   > button {
     position: absolute;
@@ -27,11 +27,11 @@ export default {
     top: 10px;
   }
 }
-.slide-enter-active,
-.slide-leave-active {
+.g-slide-enter-active,
+.g-slide-leave-active {
   transition: all 0.5s;
 }
-.slide-enter, .slide-leave-to {
+.g-slide-enter, .g-slide-leave-to {
   margin-left: -200px;
 }
 </style>
