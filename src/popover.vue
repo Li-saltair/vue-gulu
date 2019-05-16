@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper" @click="popClick" ref="popover">
+  <div class="g-wrapper" @click="popClick" ref="popover">
     <div
-      class="content"
+      class="g-content"
       ref="popoverWrapper"
       v-if="visible"
       :class="{[`position-${position}`]:true}"
@@ -154,12 +154,12 @@ export default {
 <style lang="scss" scoped>
 $border-color: #ccc;
 $border-radius: 4px;
-.wrapper {
+.g-wrapper {
   display: inline-block;
   vertical-align: top;
   position: relative;
 }
-.content {
+.g-content {
   position: absolute;
   border: 1px solid $border-color;
   border-radius: $border-radius;

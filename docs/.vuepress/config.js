@@ -7,12 +7,16 @@ module.exports = {
           '/install/',
           '/get-started/',
           {
-            title: '组件',   // 必要的
+            title: '简单组件',   // 必要的
             path: '/components/',      // 可选的, 应该是一个绝对路径
-            //collapsable: false, // 可选的, 默认值是 true,
+            collapsable: true, // 可选的, 默认值是 true,
             sidebarDepth: 2,    // 可选的, 默认值是 1
             children: [
-                '/components/button'
+                '/components/button',
+                '/components/btn-group',
+                '/components/input',
+                '/components/toast',
+                '/components/popover',
             ]
           },
         ]

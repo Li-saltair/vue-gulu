@@ -10,6 +10,7 @@
 <script>
 import Icon from "./../icon"
 export default {
+  name:"Gbutton",
   components:{
     "g-icon":Icon
   },

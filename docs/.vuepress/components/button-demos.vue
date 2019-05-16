@@ -4,7 +4,8 @@
     <g-button icon="setting">icon按钮</g-button>
     <g-button loading>loading按钮</g-button>
     <g-button disabled>不可用按钮</g-button>
-    <pre><code>{{content}}</code></pre>
+    <g-button icon="right" icon-position="right">icon在右边的按钮</g-button>
+    <g-button icon="info" @click="load = true" :loading="load">点击后会loading</g-button>
   </div>
  
 </template>
@@ -14,17 +15,17 @@ export default {
   components: {
     "g-button": Button
   },
-  data() {
+  data(){
     return {
-      content: `
-                <g-button>默认按钮</g-button>
-                <g-button icon='setting'>icon按钮</g-button>
-                <g-button loading>loading按钮</g-button>
-                <g-button disabled>不可用按钮</g-button>
-            `.replace(/\t+| +/g,'').trim()
-    };
+      load:false
+    }
   }
 };
 </script>
+<style >
+  .icon{
+    fill:#7c7;
+  }
+</style>
 
 

@@ -66,6 +66,11 @@ export default {
       color: #ccc;
       border-color: $disabled-border-color;
       cursor: not-allowed;
+      box-shadow:none;
+    }
+    &[disabled]{
+      background:#efefef;
+      border-color:#eee;
     }
   }
   &.error {
