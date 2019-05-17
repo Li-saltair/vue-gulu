@@ -24,5 +24,10 @@ export default {
   }
 };
 ```
+Props | 含义 | 默认值 | 是否必须 | 可选值
+---|---|--- |---|---
+icon | icon名称 | null | false | String
+iconPosition | icon的位置 | false | left | ["left","right"]
+loading | loading状态 | false | false | [true,false]
 
 

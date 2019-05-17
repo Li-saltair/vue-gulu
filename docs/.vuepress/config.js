@@ -18,6 +18,8 @@ module.exports = {
                 '/components/toast',
                 '/components/popover',
                 '/components/layout',
+                '/components/sticky',
+                '/components/tabs',
             ]
           },
         ]

@@ -158,6 +158,7 @@ $border-radius: 4px;
   display: inline-block;
   vertical-align: top;
   position: relative;
+  background:#fff;
 }
 .g-popover-content {
   position: absolute;
@@ -168,6 +169,7 @@ $border-radius: 4px;
   font-size: 12px;
   max-width: 26em;
   background: #fff;
+  z-index:99;
   &::before,
   &::after {
     position: absolute;

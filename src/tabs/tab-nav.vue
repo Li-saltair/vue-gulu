@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-nav">
+  <div class="g-tabs-nav">
     <slot></slot>
     <div class="line" ref="line"></div>
     <div class="actions-wrapper">
@@ -13,16 +13,18 @@ export default {
   inject: ["eventBus"],
   mounted() {
     this.eventBus.$on("update:selected", (item, vm) => {
+      console.log(vm.$el)
+      console.log(vm.$el.getBoundingClientRect())
       let { width, height, top, left } = vm.$el.getBoundingClientRect();
       this.$refs.line.style.width = `${width}px`;
-      this.$refs.line.style.left = `${left}px`;
+      this.$refs.line.style.left = `${left-width}px`;
     });
   }
 };
 </script>
 <style lang="scss" scoped>
 $tab-height: 40px;
-.tabs-nav {
+.g-tabs-nav {
   position: relative;
   display: flex;
   height: $tab-height;
@@ -38,6 +40,10 @@ $tab-height: 40px;
   }
   > .actions-wrapper {
     margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1em;
   }
 }
 </style>

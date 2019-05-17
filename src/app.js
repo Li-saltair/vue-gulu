@@ -97,7 +97,8 @@ Vue.component('g-uploader', Uploader)
 new Vue({
   el: '#root',
   data: {
-    selectedTab: ['1', '2'],
+    selectedTab:"three",
+    //selectedTab: ['1', '2'],
     //selected: [],
     source: [],
     selected: '2',

@@ -1,7 +1,7 @@
-# 输入框
+# Tab
 
 <ClientOnly>
-<input-demo></input-demo>
+<tabs-demo></tabs-demo>
 </ClientOnly>
 
 ```html

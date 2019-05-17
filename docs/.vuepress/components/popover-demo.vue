@@ -34,7 +34,7 @@
       </template>
       <template v-slot:content>
         <div>
-          提示内容是我
+          长提示内容，多个文字的提示内容，超过一定长度会自动换行的弹出
         </div>
       </template>
     </g-popover>

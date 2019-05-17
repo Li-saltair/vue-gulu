@@ -27,7 +27,6 @@ export default {
     this.windowScrollHandler = this._windowScrollHandler.bind(this);
     window.addEventListener("scroll", this.windowScrollHandler);
   },
-  watch: {},
   beforeDestroy() {
     window.removeEventListener("scroll", this.windowScrollHandler);
   },
@@ -52,17 +51,15 @@ export default {
         let {
           width,
           height,
-          top,
           left
         } = this.$refs.wrapper.getBoundingClientRect();
-        this.$refs.wrapper.style.height = height + "px";
         this.height = height + "px";
         this.width = width + "px";
         this.left = left + "px";
         this.top = this.distance + 'px'
         this.sticky = true;
       } else {
-          this.height = undefined
+        this.height = undefined
         this.width = undefined
         this.left = undefined
         this.top = undefined
@@ -74,9 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .g-sticky {
-  border: 1px solid #f66;
   .sticky {
-    background: #f66;
     position: fixed;
     z-index: 9;
   }

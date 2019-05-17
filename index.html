@@ -51,17 +51,13 @@
   </head>
   <body>
     <div id="root">
-      
-      <!-- <g-tabs :selected.sync="selectedTab" direction="vertical">
+      <g-tabs :selected.sync="selectedTab" direction="vertical">
         <g-tabs-nav>
           <template v-slot:actions>
              建议以v-slot：actions 来代替slot="actions" 
-            <button>
-              是这样的吗
-            </button>
           </template>
-          <g-tabs-item name="one"><g-icon name="setting"></g-icon>体育</g-tabs-item>
-          <g-tabs-item name="two" disabled>新闻</g-tabs-item>
+          <g-tabs-item name="one">体育</g-tabs-item>
+          <g-tabs-item name="two">新闻</g-tabs-item>
           <g-tabs-item name="three">其他</g-tabs-item>
         </g-tabs-nav>
         <g-tabs-body>
@@ -69,7 +65,7 @@
           <g-tabs-content name="two">的氛围</g-tabs-content>
           <g-tabs-content name="three">哈哈哈的火车我</g-tabs-content>
         </g-tabs-body>
-      </g-tabs> -->
+      </g-tabs>
 
       <!-- <g-popover position="bottom">
         <template v-slot:content>
@@ -216,9 +212,12 @@
         :hide-if-one-page="false"
       ></g-pager> -->
       <!-- 固钉 -->
-      <!-- <g-sticky :distance="100">
-        <div>粘滞按钮</div>
-      </g-sticky> -->
+      <!--<g-sticky :distance="100">
+        <g-button>
+          <g-icon name="fixed"></g-icon>
+          我是粘滞按钮，请滑动鼠标滚轮
+        </g-button>
+      </g-sticky>-->
       <!-- 表格 -->
       <!-- <g-table
         :columns="column"

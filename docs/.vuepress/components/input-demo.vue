@@ -3,6 +3,10 @@
     <g-input/>
     <g-input readonly/>
     <g-input disabled/>
+    <br>
+    <br>
+    <g-input error="请重新填写"/>
+    <g-input value="详情"/>
   </div>
  
 </template>
