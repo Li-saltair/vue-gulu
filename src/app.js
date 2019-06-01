@@ -93,11 +93,11 @@ Vue.component('g-uploader', Uploader)
 //     }, 1000)
 //   })
 // }
-
 new Vue({
   el: '#root',
   data: {
     selectedTab:"three",
+    collapseTab:["1","2"],
     //selectedTab: ['1', '2'],
     //selected: [],
     source: [],

@@ -1,5 +1,5 @@
 <template>
-  <div class="col" :class="colClasses" :style="colStyle">
+  <div class="g-col" :class="colClasses" :style="colStyle">
     <slot></slot>
   </div>
 </template>
@@ -79,9 +79,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.col {
+.g-col {
   padding: 0 10px;
   height: 100px;
+  box-sizing:border-box;
   $class: col-;
   @for $n from 1 through 24 {
     &.#{$class}#{$n} {

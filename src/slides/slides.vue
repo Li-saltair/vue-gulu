@@ -197,18 +197,25 @@ export default {
   }
   &-pages {
     display: flex;
+    margin-top:.6em;
     height: 1em;
     justify-content: center;
     align-items: center;
     > span {
       cursor: pointer;
-      width: 1em;
-      height: 1em;
+      display: inline-block;
+      width: 1.2em;
+      height: 1.2em;
+      font-size:12px;
       margin: 0 0.3em;
+      padding:.4em;
+      text-align:center;
+      line-height:1.2em;
       border-radius: 50%;
-      background: #7c7;
+      background: #efdbff;
       &.active {
-        background: #f66;
+        background: #000;
+        color:#fff;
       }
     }
   }

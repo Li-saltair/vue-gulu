@@ -15,11 +15,14 @@ module.exports = {
                 '/components/button',
                 '/components/btn-group',
                 '/components/input',
-                '/components/toast',
+                //'/components/toast',
                 '/components/popover',
                 '/components/layout',
                 '/components/sticky',
                 '/components/tabs',
+                '/components/collapse',
+                '/components/carousel',
+                '/components/grid',
             ]
           },
         ]
