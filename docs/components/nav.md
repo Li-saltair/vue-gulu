@@ -1,4 +1,4 @@
-# 输入框
+# 导航菜单
 
 <ClientOnly>
 <nav-demo></nav-demo>
@@ -44,9 +44,19 @@ export default {
   }
 };
 ```
+#### Nav
 Props | 含义 | 默认值 | 是否必须 | 可选值
 ---|---|--- |---|---
-value | 输入框默认值 | null | false | String
-disabled | 不可用 | false | false | [true,false]
-readonly | 只读 | false | false | [true,false]
-error | 错误信息 | null | false | String
+selected | 已选择值 | [] | false | Array
+multiple | 支持多选 | false | false | [true,false]
+direction | 方向 | "horizontal" | false | ["horizontal","vertical"]
+
+#### SubNav
+Props | 含义 | 默认值 | 是否必须 | 可选值
+---|---|--- |---|---
+name | 菜单名称 | - | true | [String, Number]
+
+#### NavItem
+Props | 含义 | 默认值 | 是否必须 | 可选值
+---|---|--- |---|---
+name | 菜单名称 | - | true | [String, Number]
