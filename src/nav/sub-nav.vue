@@ -3,7 +3,8 @@
     <span @click="toggleSubNav" class="g-sub-nav-label">
       <slot name="title"></slot>
       <span class="g-sub-nav-icon" :class="{open}">
-        <Icon name="down"></Icon>
+        <Icon name="down" v-if="vertical"></Icon>
+        <Icon name="right" v-else></Icon>
       </span>
     </span>
     <transition name="fade">
@@ -100,9 +101,9 @@ export default {
 .g-sub-nav .g-sub-nav .g-sub-nav-popover.vertical {
   position: static;
 }
-.g-sub-nav .g-sub-nav .g-sub-nav-icon {
+/*.g-sub-nav .g-sub-nav .g-sub-nav-icon {
   display: none;
-}
+}*/
 .icon {
   width: 0.8em;
   height: 0.8em;

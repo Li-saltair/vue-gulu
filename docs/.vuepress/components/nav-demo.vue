@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top:100px;width:400px;">
-    <g-nav :selected.sync="menu" direction="vertical">
+    <g-nav :selected.sync="menu">
       <g-sub-nav name="one">
         <template v-slot:title>一</template>
         <g-nav-item name="two">二</g-nav-item>
