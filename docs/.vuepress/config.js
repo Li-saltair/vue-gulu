@@ -33,15 +33,13 @@ module.exports = {
             collapsable: true, // 可选的, 默认值是 true,
             sidebarDepth: 2,    // 可选的, 默认值是 1
             children: [
-                // '/components/button',
-                // '/components/btn-group',
-                // '/components/input',
                 //'/components/toast',
                 '/components/popover',
                 '/components/sticky',
                 '/components/tabs',
                 '/components/collapse',
                 '/components/carousel',
+                '/components/nav',
             ]
           },
         ]
