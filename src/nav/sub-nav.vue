@@ -79,6 +79,7 @@ export default {
   &-popover {
     position: absolute;
     white-space: nowrap;
+    z-index:99;
     background: #fff;
     top: 100%;
     margin-top: 1px;
@@ -97,6 +98,12 @@ export default {
   z-index: 2;
   left: 100%;
   top: 0;
+}
+.g-sub-nav .g-sub-nav .g-sub-nav-label{
+  padding-left:40px;
+}
+.g-sub-nav .g-sub-nav .g-sub-nav .g-sub-nav-label{
+  padding-left:60px;
 }
 .g-sub-nav .g-sub-nav .g-sub-nav-popover.vertical {
   position: static;

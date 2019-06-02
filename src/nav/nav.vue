@@ -87,7 +87,7 @@ export default {
   user-select: none;
   &.vertical{
       flex-direction: column;
-      border:1px solid #7c7;
+      border:1px solid #e8e8e8;
   }
 }
 </style>

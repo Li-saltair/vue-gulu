@@ -48,11 +48,22 @@ export default {
     }
   }
 }
+.g-sub-nav .g-nav-item{
+  padding-left:40px;
+}
+.g-sub-nav .g-sub-nav .g-nav-item{
+  padding-left:60px;
+}
+.g-sub-nav .g-sub-nav .g-sub-nav .g-nav-item{
+  padding-left:80px;
+}
 .g-sub-nav .g-nav-item.selected {
   background: #f9f0ff;
+  padding-left:40px;
   color: #666;
   &::after {
     display: none;
   }
 }
+
 </style>
