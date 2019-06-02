@@ -26,9 +26,9 @@ describe("Row", () => {
       el: div
     });
     setTimeout(() => {
-      const rows = vm.$el.querySelector(".row");
+      const rows = vm.$el.querySelector(".g-row");
       expect(getComputedStyle(rows).marginLeft).to.eq("-10px");
-      const cols = vm.$el.querySelector(".col");
+      const cols = vm.$el.querySelector(".g-col");
       expect(getComputedStyle(cols).paddingLeft).to.eq("10px");
       done();
       vm.$el.remove();
